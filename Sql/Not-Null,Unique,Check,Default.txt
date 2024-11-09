@@ -1,0 +1,59 @@
+-----------Not Null(it does not allow null value but allow duplicate)------
+
+create table emp_not
+(
+id int not null,
+name varchar(20),
+city varchar(30)
+)
+
+truncate table emp_not
+
+insert into emp_not values(1,'amit','mumbai')
+insert into emp_not values(null,'amit','mumbai')--This line will raise error since we have given id int Not Null
+insert into emp_not values(3,'sunita','mumbai')
+select * from emp_not
+----------------------------unique-----------------it does not allow duplicate but allow null---
+
+create table emp_uni
+(
+id int unique,
+name varchar(20),
+city varchar(30)
+)
+truncate table emp_uni
+
+insert into emp_uni values(1,'amit','mumbai')
+insert into emp_uni values(null,'amit','mumbai')
+insert into emp_uni values(1,'amit','mumbai')
+-----In the id column null value will be accepted but same value will not be accepted
+select * from emp_uni
+
+---------------------------check-----------------------
+create table emp_ck
+(
+id int,
+name varchar(30),
+sal int,
+check(sal>=5000)
+)
+
+insert into emp_ck  values(1,'amit',3400)  --will raise error since sal less than 5000
+insert into emp_ck  values(1,'amit',5000)
+
+select * from emp_ck
+
+--------------------------default-----------------
+
+create table emp_def
+(id int,
+name varchar(30),
+city varchar(30) default 'Mumbai'
+)
+
+insert into emp_def(id,name,city)values
+(10,'kiran','delhi')
+
+insert into emp_def(id,name)values
+(11,'mohan')
+------This will take default value for city as Mumbai

@@ -1,0 +1,1018 @@
+---sql -structure query language
+
+--sql is divide into four parts
+
+--DDL  (Data Definition language)    (create ,alter,drop)
+--DML-(Data manipulate language)     (insert ,update,delete)
+--DCL (Data control language)        (grant ,revoke)
+--TCL (Transcation control language)  (commit,rollback,savepoint) 
+
+--RDBMS  (Relational Database Management System) (oracle ,sqlserver, mysql etc)
+--DBMS( Database Management System)  ms access, Excel
+
+
+--Database - collection of table or view
+
+---Entity--  Table Name
+---attribute column name
+----tuple (records)
+--What is SQL?
+---sql stands for Structured Query Language
+---SQL lets you access and manipulate databases
+---SQL became a standard of the American National Standards Institute (ANSI) in 1986,
+---and of the International Organization for Standardization (ISO) in 1987
+
+create database teacher
+
+use teacher
+--primary key--(it does not allow duplicate values and null values)----
+
+create table dept(deptno int primary key,dname varchar(30), loc varchar(30))
+insert into dept values(10,'software','mumbai')
+insert into dept values(10,'hardware','pune')--error bec 10 already exits
+insert into dept values(null,'hardware','pune')--error bec null not accept
+
+insert into dept values(20,'hardware','pune')
+insert into dept values(30,'sales','delhi')
+insert into dept values(40,'account','agra')
+
+select * from dept
+----------------------------------foreign key-----------------------(create Realtionship)
+
+
+create table emp(empno int primary key,ename varchar(30),sal int,comm int,
+ deptno int ,foreign key(deptno)references dept(deptno))
+
+
+ insert into emp values(1,'julkar',5000,200,10)
+ insert into emp values(2,'suraj',7000,null,50) ---error 50 is not present into primary table
+
+ insert into emp values(2,'suraj',6000,null,30)
+ insert into emp values(3,'mohan',3000,600,20)
+ insert into emp values(4,'kumar',8000,null,20)
+ insert into emp values(5,'amit',5000,300,10)
+ insert into emp values(6,'kiran',7600,null,10)
+ insert into emp values(7,'raj',2000,400,30)
+
+ 
+  select * from emp where empno=2
+ select * from emp where sal>=5000
+
+ insert into emp values(8,'julkar',5600,400,20)
+
+select DISTINCT ename from emp where ename='julkar'
+
+
+select * from emp
+
+
+Select Charindex('i',ename) from emp where ename = 'amit'
+
+-----------Not Null(it does not allow null value but allow duplicate)------
+
+create table emp_not(id int not null,name varchar(20),city varchar(30))
+
+insert into emp_not values(1,'amit','mumbai')
+insert into emp_not values(null,'amit','mumbai')--error
+insert into emp_not values(1,'amit','mumbai')
+select * from emp_not
+----------------------------unique-----------------it does not allow duplicate but allow null---
+
+create table emp_uni(id int unique,name varchar(20),city varchar(30))
+
+insert into emp_uni values(1,'amit','mumbai')
+insert into emp_uni values(null,'amit','mumbai')
+insert into emp_uni values(1,'amit','mumbai')  --error
+select * from emp_uni
+
+---------------------------check-----------------------
+create table emp_ck(id int, name varchar(30),sal int ,check(sal>=5000))
+insert into emp_ck  values(1,'amit',3400)  --error sal less than 5000
+insert into emp_ck  values(1,'amit',5000)
+select * from emp_ck
+
+--------------------------default-----------------
+
+create table emp_def(id int, name varchar(30),city varchar(30) default 'Mumbai')
+
+insert into emp_def(id,name,city)values(10,'kiran','delhi')
+insert into emp_def(id,name)values(11,'mohan')
+
+select * from emp_def
+-------------------------------------
+select * from emp
+select ename,sal from emp where sal between 4000 and 7000
+
+
+-----------------------where clause condition apply---------------
+use teacher
+
+select * from emp
+-----------------relational operator-----
+
+select * from emp where sal>5000
+select * from emp where sal>=5000
+select * from emp where sal<5000
+select * from emp where sal<=5000
+select * from emp where sal=5000
+select * from emp where sal!=5000
+select * from emp where sal<>5000
+
+------------logical operator--------------
+
+select * from emp where sal>=4000 and sal<=8000
+
+   -------or---------
+
+ select * from emp where sal between 4000 and 8000
+
+select * from emp where sal=5000 or sal=8000
+
+select * from emp where sal in(2000,3000,4000,5000)
+
+select * from emp where sal not in(2000,3000,4000,5000)
+
+select * from emp
+
+select * from emp where comm is null
+select * from emp where comm is not null
+
+---------------like---------------
+use teacher
+select * from emp
+select * from emp where ename like 'j%'
+select * from emp where ename like '%n'
+select * from emp where ename like '_u%'
+select * from emp where ename like '%a_'
+select * from emp where ename like '%u%'
+
+select * from emp where sal like '5%'
+select * from emp where sal like '500%'
+select * from emp where sal like '5000%'
+
+select * from emp where ename like '%[0-9]%'
+
+
+-------Practical Operatoers-----
+-----Q1.
+create table Customer
+(
+Customer_id int,
+cust_name varchar (50),
+city varchar (50),
+grade int,
+salesman_id int
+)
+
+
+
+insert into Customer values (3002, 'Nick Rimando','New York',100,5001)
+insert into Customer values (3007, 'Brad Davis','New York',200,5001)
+insert into Customer values (3005, 'Graham Zusi','California',200,5002)
+insert into Customer values (3008, 'Julian Green','London',300,5002)
+insert into Customer values (3004, 'Fabian Johnson','Paris',300,5006)
+insert into Customer values (3009, 'Geoff Cameron','Berlin',100,5003)
+insert into Customer values (3003, 'Jozy Altidor','Moscow',200,5007)
+insert into Customer values (3001, 'Brad Guzan','London',null,5005)
+
+select * from customer
+
+select * from customer where grade>100
+
+Q2.
+select * from customer where grade>100 and city = 'New York'
+Q3.
+select * from customer where grade>100 or city = 'New York'
+Q4.
+select * from customer where grade<=100 or city = 'New York'
+Q5.
+select * from customer where not (grade>100 or city = 'New York')
+
+Q6.
+create table orders
+(
+ord_no int,
+purch_amt float,
+ord_date date,
+customer_id int,
+salesman_id	 int
+)
+
+insert into orders values (70001,150.5,'2012-10-05',3005,5002)
+insert into orders values (70009,270.65,'2012-09-10',3001,5005)
+insert into orders values (70002,65.26,'2012-10-05',3002,5001)
+insert into orders values (70004,110.5,'2012-08-17',3009,5003)
+insert into orders values (70007,948.5,'2012-09-10',3005,5002)
+insert into orders values (70005,2400.6,'2012-07-27',3007,5001)
+insert into orders values (70008,5760,'2012-09-10',3002,5001)
+insert into orders values (70010,1983.43,'2012-10-10',3004,5006)
+insert into orders values (70003,2480.4,'2012-10-10',3009,5003)
+insert into orders values (70012,250.45,'2012-06-27',3008,5002)
+insert into orders values (70011,75.29,'2012-08-17',3003,5007)
+insert into orders values (70013,3045.6,'2012-04-25',3002,5001)
+
+select * from orders
+
+select * from orders where not ((ord_date = '2012-09-10' and salesman_id>5005) or purch_amt>1000)
+
+Q7.
+create table salesman
+(
+salesman_id int,
+name varchar (50),
+City varchar (50),
+commission float
+)
+
+insert into salesman values (5001,'James Hoog','New York',0.15)
+insert into salesman values (5002,'Nail Knite','Paris',0.13)
+insert into salesman values (5005,'Pit Alex','London',0.11)
+insert into salesman values (5006,'Mc Lyon','Paris',0.14)
+insert into salesman values (5007,'Paul Adam','Rome',0.13)
+insert into salesman values (5003,'Lauson Hen','San Jose',0.12)
+
+select * from salesman
+
+select * from salesman where commission between 0.10 and 0.12-------getting the value including 0.10 and 0.12----
+select * from salesman where commission>0.10 and commission<0.12
+
+
+Q8.
+select * from orders
+
+select * from orders where (purch_amt<200 or not ( ord_date>='2012-02-10' and customer_id<3009))
+
+Q9
+select * from orders where not (ord_date='2012-08-17' or customer_id>3005 and purch_amt<1000)
+
+Q11. and Q12.
+create table emp_details
+(
+EMP_IDNO int,
+EMP_FNAME varchar (50),
+EMP_LNAME varchar (50),
+EMP_DEPT int
+)
+
+insert into emp_details values (127323,'Michale','Robbin',57)
+insert into emp_details values (526689,'Carlos','Snares',63)
+insert into emp_details values (843795,'Enric','Dosio',57)
+insert into emp_details values (328717,'Jhon','Snares',63)
+insert into emp_details values (444527,'Joseph','Dosni',47)
+insert into emp_details values (659831,'Zanifer','Emily',47)
+insert into emp_details values (847674,'Kuleswar','Sitaraman',57)
+insert into emp_details values (748681,'Henrey','Gabriel',47)
+insert into emp_details values (555935,'Alex','Manuel',57)
+insert into emp_details values (539569,'George','Mardy',27)
+insert into emp_details values (733843,'Mario','Saule',63)
+insert into emp_details values (631548,'Alan','Snappy',27)
+insert into emp_details values (839139,'Maria','Foster',57)
+
+select * from emp_details
+
+select * from emp_details where EMP_LNAME='Dosni' or EMP_LNAME = 'Mardy'
+
+select * from emp_details where EMP_DEPT = 47 or EMP_DEPT=63
+
+-----Practical Wildcard and Special Operators----
+
+Q1. select * from salesman where city = 'Paris' or city= 'Rome'
+Q2. Same Question as Q1.
+Q3. select * from salesman where city != 'Paris' and city != 'Rome'
+select * from salesman where city not in ('Paris','Rome') 
+Q4. select * from customer where Customer_id in (3007, 3008, 3009)
+Q5. select * from salesman where commission between 0.12 and 0.14
+Q6. select * from orders where purch_amt between 500 and 4000 and purch_amt not in (948.5,1983.43)
+Q7. select * from salesman where name between 'A' and 'L'
+Q8. select * from salesman where name not between 'A' and 'L'
+Q9. select * from customer where cust_name like 'B%'
+Q10. select * from customer where cust_name like '%n'
+Q11. select * from salesman where name like 'n__l%'
+Q12. select * from testtable where col1 like '%/_%' escape '/'
+
+Q13. select * from testtable where col1 not like '%/_%' escape '/'
+
+Q14. select * from testtable where col1 like '%//%' escape '/'
+
+Q15. select * from testtable where col1 not like '%//%' escape '/'
+
+Q16. select * from testtable where col1 like '%///%' escape '/'----Doubt why '%///%' instead of '%/_/%'------
+
+Q17. select * from testtable where col1 not like '%/_//%' escape '/'--- same doubt as above-----
+Q18. select * from testtable where col1 like '%/%%' escape '/'
+
+Q19. select * from testtable where col1 not like '%/%%' escape '/'
+
+Q20. select * from customer where grade is null
+
+Q21. select * from customer where grade is not null
+Q22. select * from emp_details where EMP_LNAME like 'D%'
+
+
+
+--------------------order by (ascending order)------------
+use teacher
+select * from emp
+select * from emp order by sal
+select * from emp order by ename
+
+
+--------------------order by (descending order)------------
+select * from emp order by sal desc
+select * from emp order by ename desc
+
+select * from emp
+-----------------unique records display--------------
+select distinct ename from emp
+
+---top 5 records----
+select top 5 * from emp 
+select top 3 * from emp 
+
+----top 5 highest sal ----
+select top 5 * from emp order by sal desc
+
+----top 5 low sal ---
+select top 5 * from emp order by sal asc
+
+
+---------------------------------group function aggregate function-----------------
+use teacher
+select * from emp
+
+select sum(sal) "Total salary" from emp
+select max(sal)"max salary" from emp
+select min(sal)"min salary" from emp
+select avg(sal)"avg salary" from emp
+select count(sal)"count salary" from emp
+
+select * from emp
+
+select deptno,sum(sal)"total salary" from emp group by deptno
+
+select deptno,max(sal)"max salary" from emp group by deptno
+
+select deptno,min(sal)"min salary" from emp group by deptno
+
+select deptno,avg(sal)"avg salary" from emp group by deptno
+
+select deptno,count(sal)"count salary" from emp group by deptno
+
+select deptno,sum(sal) as "total sal" ,max(sal) as "max" ,min(sal) as "min" ,
+avg(sal) as "avg" ,count(sal) as "count"  from emp group by deptno
+
+select deptno,ename,sum(sal)"total salary" from emp group by ename,deptno
+------------------having--------------------
+
+select deptno,sum(sal)"total salary" from emp group by deptno having sum(sal)>=17000
+
+select deptno,max(sal)"max salary" from emp group by deptno having max(sal)>=9000
+
+
+-----------Aggregate Function--------------
+Q1. select sum(purch_amt) "Total purch_amt" from orders
+Q2. select avg(purch_amt) "Avg purch_amt" from orders
+Q3. select count(distinct salesman_id) "count salesman_id" from orders
+Q4. select count(customer_id) "count customer_id" from customer
+Q5. select count(grade) "count grade" from customer
+Q6. select max(purch_amt) "max purch_amt" from orders
+Q7. select min(purch_amt) "min purch_amt" from orders
+Q8. select city,max(grade) "max grade" from customer group by city -------Can we apply “order by” operator in max grade column ?-------------
+Q9. select customer_id, max(purch_amt) "max purch_amt" from orders group by customer_id
+Q10. select customer_id, ord_date, max(purch_amt) "max purch_amt" from orders group by customer_id, ord_date
+Q11. select salesman_id, max(purch_amt) "max purch_amt" from orders where ord_date='2012-08-17'group by salesman_id 
+
+Q12. select customer_id, ord_date, max(purch_amt) "max purch_amt" from orders where purch_amt>2000 group by customer_id, ord_date
+
+Q13. select customer_id, ord_date, max(purch_amt) "max purch_amt" from orders where purch_amt between 2000 and 6000 group by customer_id, ord_date
+
+Q14. select customer_id, ord_date, max(purch_amt) "max purch_amt" from orders where purch_amt in(2000, 3000, 5760, 6000) group by customer_id, ord_date
+
+Q15. select customer_id, max(purch_amt) "max purch_amt" from orders where customer_id between 3002 and 3007 group by customer_id
+
+Q16. select customer_id, max(purch_amt) "max purch_amt" from orders where customer_id between 3002 and 3007 and purch_amt>1000 group by customer_id
+
+Q17. select salesman_id, max(purch_amt) "max purch_amt" from orders where salesman_id between 5003 and 5008 group by salesman_id
+
+Q18. select count (ord_no) "count ord_no" from orders where ord_date='2012-08-17'
+Q19. select city,count(salesman_id) "count salesman_id" from salesman group by city
+
+For total count select count (salesman_id) "count salesman_id" from salesman
+
+Q20. select ord_date, salesman_id, count (ord_no) "count ord_no" from orders group by ord_date, salesman_id
+
+Q21. create table item_mast
+(
+PRO_ID int identity (101,1),
+PRO_NAME varchar (50),
+PRO_PRICE float,
+PRO_COM int
+)
+
+insert into item_mast values ('Mother Board',3200.00,15)
+insert into item_mast values ('Key Board',450.00,16)
+insert into item_mast values ('ZIP drive',250.00,14)
+insert into item_mast values ('Speaker',550.00,16)
+insert into item_mast values ('Monitor',5000.00,11)
+insert into item_mast values ('DVD drive',900.00,12)
+insert into item_mast values ('CD drive',800.00,12)
+insert into item_mast values ('Printer',2600.00,13)
+insert into item_mast values ('Refill cartridge',350.00,13)
+insert into item_mast values ('Mouse',250.00,12)
+
+select * from item_mast
+
+select avg(PRO_PRICE) "avg PRO_PRICE" from item_mast
+
+Q22. select count(PRO_PRICE) "count PRO_PRICE" from item_mast where PRO_PRICE>=350
+
+Q23. select PRO_COM, avg (distinct PRO_PRICE) "avg PRO_PRICE" from item_mast group by PRO_COM
+
+Q24. create table emp_department
+(
+DPT_CODE int,
+DPT_NAME varchar(50),
+DPT_ALLOTMENT bigint
+)
+
+insert into emp_department values (57,'IT',65000)
+insert into emp_department values (63,'Finance',15000)
+insert into emp_department values (47,'HR',240000)
+insert into emp_department values (27,'RD',55000)
+insert into emp_department values (89,'QC',75000)
+
+select * from emp_department
+
+select sum(DPT_ALLOTMENT) "SUM DPT_ALLOTMENT" from emp_department
+
+Q25. select EMP_DEPT, count(EMP_DEPT) "Count EMP_DEPT" from emp_details group by EMP_DEPT
+
+--------------------ISNULL function-----------------------
+
+create table emp_tab(id int ,name varchar(40),address varchar(100)) 
+
+insert into emp_tab values(1,null,'mumbaai')
+insert into emp_tab values(2,'amit',null)
+insert into emp_tab values(null,'suraj','pune')
+insert into emp_tab values(3,null,'mumbaai')
+
+select * from emp_tab
+
+alter table emp_tab add price int
+
+update emp_tab set price=12 where id=1
+update emp_tab set price=34 where id=3
+
+update emp_tab set price=isnull(price,0) where price is null
+
+select isnull(name,'N.A'),isnull(id,0),isnull (address,'N.A') from emp_tab
+
+update emp_tab set name=isnull(name,'N.A') where name is null
+
+select ISNULL(comm,0) from emp
+
+-------------------------------Nested Query----------------
+select top 5 * from emp
+select top 50 percent * from emp
+
+select  * from emp
+
+use teacher
+select * from emp where sal>(select sal from emp where ename='suraj')
+select * from emp where sal>=(select sal from emp where ename='suraj')
+
+select ename,sal from emp where ename like 'j%'
+
+-----------------------Date Function---------------------
+
+select getdate() as "Date"
+
+SELECT FORMAT (getdate(), 'dd-MM-yy') as "Date"
+
+SELECT FORMAT (getdate(), 'dd/MM/yyyy ') as date----21/03/2021
+SELECT FORMAT (getdate(), 'dd/MM/yyyy, hh:mm:ss ') as date	---21/03/2021, 11:36:14
+SELECT FORMAT (getdate(), 'dddd, MMMM, yyyy') as date	---Wednesday, March, 2021
+SELECT FORMAT (getdate(), 'MMM dd yyyy') as date	---Mar 21 2021
+SELECT FORMAT (getdate(), 'MM.dd.yy') as date	----03.21.21
+SELECT FORMAT (getdate(), 'MM-dd-yy') as date	-----03-21-21
+SELECT FORMAT (getdate(), 'hh:mm:ss tt') as date	----11:36:14 AM
+SELECT FORMAT (getdate(), 'd','us') as date	-----03/21/2021
+SELECT FORMAT (getdate(), 'yyyy-MM-dd hh:mm:ss tt') as date	----2021-03-21 11:36:14 AM
+SELECT FORMAT (getdate(), 'yyyy.MM.dd hh:mm:ss t') as date	----2021.03.21 11:36:14 A
+SELECT FORMAT (getdate(), 'dddd, MMMM, yyyy','es-es') as date     --Spanish	domingo, marzo, 2021
+SELECT FORMAT (getdate(), 'dddd dd, MMMM, yyyy','ja-jp') as date     --Japanese	
+
+
+use teacher
+
+create table datatab(id int,name varchar(30),hiredata datetime)
+insert into datatab values(1,'julkar',getdate())
+
+select * from datatab
+SELECT FORMAT (hiredata, 'dd-MM-yy') as "Date" from datatab
+
+
+select DATEADD(day,10,getdate())
+select DATEADD(month,10,getdate())
+select DATEADD(year,10,getdate())
+
+select datediff(day,'30-nov-2020',getdate()) as "Day"
+select datediff(month,'30-nov-2020',getdate()) as "Month"
+select datediff(year,'30-nov-2020',getdate()) as "Year"
+
+select datename(day,getdate())
+select datename(month,getdate())
+select datename(year,getdate())
+
+select datepart(day,getdate())
+select datepart(month,getdate())
+select datepart(year,getdate())
+
+select day(getdate())
+select month(getdate())
+select year(getdate())
+
+create table job(id int primary key,ename varchar(30),hiredate date)
+
+insert into job values(1,'julkar','2022-03-12')
+insert into job values(2,'firoz','2020-01-22')
+insert into job values(3,'kiran','2021-03-05')
+insert into job values(4,'wasim','2022-06-10')
+insert into job values(5,'amit','2021-09-24')
+insert into job values(6,'suraj','2019-07-15')
+use teacher
+select * from job
+
+select * from job where year(hiredate)=2022
+
+select id,ename,hiredate,getdate(), datediff(year,hiredate,getdate()) as "Differ Date" from job
+select id,ename,hiredate,getdate(), datediff(day,hiredate,getdate()) as "Day" from job
+select id,ename,hiredate,getdate(), datediff(month,hiredate,getdate()) as "month" from job
+
+
+select hiredate,DATEADD(day,10,hiredate) as "10 day add" from job
+select hiredate,DATEADD(day,10,hiredate) as "10 day add" from job where hiredate='2022-03-12'
+select hiredate,DATEADD(month,10,hiredate) as "10 month add" from job
+select hiredate,DATEADD(year,10,hiredate) as "10 year add" from job
+
+select ename,hiredate,datediff(day,hiredate,getdate())  from job
+select ename,hiredate,datediff(month,hiredate,getdate()) from job
+select ename,hiredate,datediff(year,hiredate,getdate()) from job
+select hiredate,datename(day,hiredate) from job
+
+
+-------------------------------String(group of letter)------------------------
+use teacher
+
+select * from emp
+
+select ascii('A')   --American Standard Code for Information Interchange 256 ascii code
+select char(65)
+select ascii('$')
+select char(36)
+
+select replace('india','i','x')
+
+select replace(ename,'i','x') as "New Name"  from emp
+
+select substring('india is the best',0,4)
+
+select substring(ename,0,4) as "New Name"  from emp
+
+select upper('India')
+
+select upper(ename) from emp
+select lower(ename) from emp
+select len(ename) from emp
+
+select left(ename,3) from emp
+select right(ename,3) from emp
+select REVERSE(ename) from emp
+
+--------------------------------------Math function------------
+select round(123.4545,2)
+select round(123.5574,2)
+select FLOOR(123.999) as "floor"
+select ceiling(123.001)
+select pi()
+select sin(90)
+select sqrt(25)
+select POWER(2,3)
+select square(2)
+select tan(45)
+select log(100)
+select log10(100)
+select cot(90)
+select abs(-123)
+select exp(1)
+
+-----set operator-----
+use teacher
+create table A(id int,name varchar(20))
+
+insert into A values(1,'julkar')
+insert into A values(2,'amit')
+
+select * from A
+
+create table B(id int,name varchar(20))
+insert into B values(1,'julkar')
+insert into B values(3,'suraj')
+
+select * from B
+
+use teacher
+
+
+select * from A 
+cross join  B
+
+
+----------------------------union------------------
+
+
+select * from A
+union
+select * from B
+
+select * from A
+union all
+select * from B
+
+select * from A
+intersect
+select * from B
+
+select * from A
+ where NOT EXISTS(select * from B where A.id=B.id)
+
+ select * from B
+ where NOT EXISTS(select * from A where A.id=B.id)
+
+ select top 5 * from emp order by sal desc
+ select top 5 * from emp order by sal asc
+
+----------------rename column---------------
+ 
+ select * from data
+
+EXEC sp_rename 'data.name', 'myname';
+
+--------------------------------Joining----------------------------
+use teacher
+select * from emp
+select * from dept
+insert into emp(empno,ename)values(9,'xyz')
+
+select * from dept
+
+-------------inner join---------------------
+select empno,ename,dname,emp.deptno from emp inner join dept on emp.deptno=dept.deptno
+
+-------------left outer join---------------------
+select empno,ename,dname,emp.deptno from emp left outer join dept on emp.deptno=dept.deptno
+
+-------------right outer join---------------------
+select empno,ename,dname,emp.deptno from emp right outer join dept on emp.deptno=dept.deptno
+
+-------------full join---------------------
+select empno,ename,dname,emp.deptno from emp full join dept on emp.deptno=dept.deptno
+
+-----------------------self Join----------------------------
+use itech
+
+create table emp1
+(
+empno int primary key,
+ename varchar(20),
+mid int,
+sal int,
+deptno int)
+
+insert into emp1 values(1,'zulkar',3,5000,10)
+insert into emp1 values(2,'Amit',1,6000,20)
+insert into emp1 values(3,'Suraj',6,7000,20)
+insert into emp1 values(4,'Mohan',5,2000,10)
+insert into emp1 values(5,'Kiran',2,3000,30)
+insert into emp1 values(6,'Firoz',4,7000,30)
+insert into emp1 values(7,'Pravin',4,7000,30)
+
+select * from emp1
+select e1.ename "manger" ,e2.ename "employee" from emp1 e1 inner join emp1 e2 on e1.empno=e2.mid
+
+
+
+------------Rank() Dense_rank(), row_number()-----------------------
+
+use teacher
+create table employee(id int, name varchar(40),sal int, dname varchar(40))
+
+insert into employee values(1,'joe',60000,'IT')
+insert into employee values(2,'jim',90000,'IT')
+insert into employee values(3,'harry',80000,'HR')
+insert into employee values(4,'sam',60000,'HR')
+insert into employee values(5,'max',90000,'IT')
+insert into employee values(6,'jerry',50000,'HR')
+insert into employee values(7,'suzzan',900000,'HR')
+insert into employee values(8,'tom',100000,'IT')
+
+select * from employee
+
+---rank()-(skip the serial number)--
+
+select *,rank()over(order by sal asc) "rank" from employee
+select *,rank()over(order by sal desc)as rank from employee
+
+---dense_rank()-(not skip the serial number)--
+
+select *,dense_rank()over(order by sal asc)as rank from employee
+select *,dense_rank()over(order by sal desc)as rank from employee
+
+---row_number (serial number)----
+
+select *,row_number()over(order by sal asc)as rank from employee
+
+---rank() with partition-(It has two departname HR and IT and partition into two parts then rank )--
+
+select *,rank()over(partition by dname order by sal asc)as rank from employee
+
+
+---dense_rank() with partition-(It has two departname HR and IT and partition into two parts then rank )--
+select *,dense_rank()over(partition by dname order by sal asc)as rank from employee
+
+
+---row_number() with partition-(It has two departname HR and IT and partition into two parts then rank )--
+select *,row_number()over(partition by dname order by sal asc)as rank from employee
+
+
+
+-----------Rollback and savepoint commit-------------
+
+CREATE DATABASE TestDB
+USE TestDB
+CREATE TABLE TestTable
+(
+   ID INT NOT NULL,
+   Value INT NOT NULL,
+   PRIMARY KEY (ID)
+)
+
+select * from TestTable
+
+BEGIN TRANSACTION 
+ 
+   INSERT INTO TestTable( ID, Value )
+   VALUES  ( 1, 10)
+   -- this will create a savepoint after the first INSERT
+   
+
+   select * from TestTable
+
+   INSERT INTO TestTable( ID, Value )
+   VALUES  ( 2, 20)
+
+   select * from TestTable
+
+   SAVE TRANSACTION s1
+     
+   INSERT INTO TestTable( ID, Value )
+   VALUES  ( 3, 30)
+
+  
+   select * from TestTable
+
+   INSERT INTO TestTable( ID, Value )
+   VALUES  ( 4, 40)
+
+   -- this will rollback to the savepoint right after the first INSERT was done
+   ROLLBACK TRANSACTION s1
+
+   select * from TestTable
+
+-- this will commit the transaction leaving just the first INSERT 
+COMMIT
+
+
+ 
+SELECT * FROM TestTable
+
+------SYNONYM-------
+
+
+use teacher
+select * from emp
+CREATE SYNONYM Emp2 FOR emp
+select * from emp
+select * from emp2
+drop synonym emp2
+
+---------------------------sequence----
+
+CREATE SEQUENCE SequenceCounter
+    AS INT
+    START WITH 5
+    INCREMENT BY 2
+
+
+
+
+create table data (id int, name varchar(30))
+
+select * from data
+
+insert into data values(NEXT VALUE FOR SequenceCounter,'julkar')
+insert into data values(NEXT VALUE FOR SequenceCounter,'kiran')
+insert into data values(NEXT VALUE FOR SequenceCounter,'amit')
+insert into data values(NEXT VALUE FOR SequenceCounter,'suraj')
+insert into data values(NEXT VALUE FOR SequenceCounter,'mohan')
+select * from data
+
+drop sequence SequenceCounter
+
+----------------view---------------------
+use teacher
+select * from emp
+
+create view emp_view as select * from emp
+
+select * from emp_view
+
+create view emp_view1 as select * from emp where sal>=5000
+select * from emp_view1
+
+
+create view emp_view2 as select * from emp where sal=5000
+
+select * from emp_view2
+
+INSERT INTO EMP_VIEW2 VALUES(111,'XYZ',5000,300,20)
+
+SELECT * FROM EMP
+
+drop view emp_view2
+-----------------------------
+
+
+
+
+------------------------PL/SQL-----
+------------arithemetic Operator-------------
+declare
+@a int,
+@b int,
+@c int
+begin
+set @a=10;
+set @b=10;
+set @c=@a+@b    -------------(+, -, *,/)
+print('Total sum ')
+print(@c)
+end 
+go
+---------------------------------
+
+DECLARE 
+@mySalary INT = 5000,
+@avgSalary int = 6000;
+
+IF @mySalary > @avgSalary
+	PRINT 'My Salary is above the average salary.';
+ELSE
+	PRINT 'My Salary is less than the average salary.';
+
+------------------------------------------------
+use teacher
+
+select * from emp
+select avg(sal) from emp
+
+if (select AVG(Sal) from Emp)  > 6000
+	print 'Average salary is greater than 6000';
+else
+	print 'Average salary is less than 6000';
+
+-----------------------------------------------------
+
+DECLARE
+@age INT;
+SET @age = 60;
+
+IF @age < 18
+   PRINT 'underage';
+ELSE
+BEGIN
+   IF @age < 50
+      PRINT 'You are below 50';
+   ELSE
+      PRINT 'Senior';
+END;
+
+----to check (tutorial for PL/SQL)--------------
+https://www.tutorialsteacher.com/sqlserver/if-else-statement#:~:text=The%20following%20example%20demonstrates%20the%20if-else%20condition.%20Example%3A,%27My%20Salary%20is%20less%20than%20the%20average%20salary.%27%3B
+
+-----proceduare----------
+create table data(id int, name varchar(20))
+
+create procedure ins_data
+(
+@id int,
+@name varchar(20)
+)
+as
+begin
+insert into data values(@id,@name)
+end
+
+
+exec ins_data 2,'julkar'
+
+select * from data
+
+---------update -----
+
+create procedure update_data
+(
+@id int,
+@name varchar(20)
+)
+as
+begin
+update data set name=@name where id=@id
+end
+
+exec update_data 1, 'kiran'
+
+
+---------delete -----
+
+create procedure delete_data
+(
+@id int
+)
+as
+begin
+delete from data where id=@id
+end
+
+exec delete_data 1
+
+
+
+------------------create User Define Function ------------------------
+https://www.sqlshack.com/learn-sql-user-defined-functions/
+
+create function areacircle(@r float)
+returns float as
+begin
+return (3.14* @r * @r)
+end
+
+create function rect(@len float,@brd float)
+returns float as
+begin
+return (@len * @brd)
+end
+
+
+
+create function eveoddnumber(@n int)
+returns char(20) as
+begin
+DECLARE @return_value CHAR(4);
+	SET @return_value = '';
+    IF (@n % 2=0) SET @return_value = 'even number';
+    IF (@n % 2!=0) SET @return_value = 'odd number';
+ 
+    RETURN @return_value
+END
+
+create function greater(@a int,@b int)
+returns int as
+begin
+declare @n int;
+set @n=0
+ IF (@a>@b)
+   set @n=@a;
+ else
+   set @n=@b;
+
+return @n
+END
+
+select dbo.greater(10,20) as "greater Number"
+
+
+
+Select dbo.eveoddnumber(5) as "Even Od Odd"
+Select dbo.eveoddnumber(10) as "Even Od Odd"
+
+SELECT dbo.areacircle(7.0) AS "Area_of_circle"
+SELECT dbo.rect(7.0,5.0) AS "Area_of_Rectangle"
+
+
+
+-----------------DATA MODEL-(countries,Customers,Orders,Orders_Products,Products)-------------------
+use teacher
+
+create table countries(countrycode  int primary key,countryname varchar(50))
+

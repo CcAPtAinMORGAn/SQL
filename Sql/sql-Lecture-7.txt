@@ -1,0 +1,85 @@
+create database yashv
+
+use yashv
+
+create table yash
+(
+    Roll int,
+    Name varchar(100);
+)
+
+select * from yash
+
+create sequence how 
+start with 1
+increment by 5
+
+insert into yash values
+(next value FOR how,'A'),
+(next value FOR how,'B');
+
+--------------identity
+
+create table tts
+(
+    Id int identity,
+    Name varchar(100);
+)
+
+select * from tts
+
+insert into tts values
+('A'),
+('B');
+
+---------------\
+
+create table dds
+(
+    Id int identity(1,5),
+    Name varchar(100);
+)
+
+select * from dds
+
+insert into dds values
+('A'),
+('B');
+-------------------------
+
+delete dds where Id=6
+
+insert into dds values
+(6,'B')
+
+select * from dds
+
+set IDENTITY_INSERT dds on
+
+insert into dds (id,name) values
+(6,'B')
+
+select * from dds
+
+set IDENTITY_INSERT dds off
+
+dbcc checkident(dds,reseed,995)
+
+insert into dds values
+(6,'B')
+
+set IDENTITY_INSERT dds on
+
+insert into dds (id,name) values
+(6,'B')
+
+select * from dds
+
+set IDENTITY_INSERT dds off
+
+dbcc checkident(dds,reseed,995)
+
+insert into dds values
+
+('asd')
+

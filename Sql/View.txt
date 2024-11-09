@@ -1,0 +1,42 @@
+use yash
+
+create table emp
+(
+empno int primary key,
+ename varchar(30),
+sal int,
+comm int,
+deptno int
+)
+
+
+insert into emp values
+(1,'julkar',5000,200,10),
+(2,'suraj',6000,null,30),
+(3,'mohan',3000,600,20),
+(4,'kumar',8000,null,20),
+(5,'amit',5000,300,10),
+(6,'kiran',7600,null,10),
+(7,'raj',2000,400,30)
+
+select * from emp
+
+create view emp_view as select * from emp
+
+select * from emp_view
+
+create view emp_view1 as select * from emp where sal>=5000
+select * from emp_view1
+
+
+create view emp_view2 as select * from emp where sal=5000
+
+select * from emp_view2
+
+INSERT INTO EMP_VIEW2 VALUES(111,'XYZ',5000,300,20)
+
+SELECT * FROM EMP
+
+drop view emp_view2
+
+select * from emp_view2

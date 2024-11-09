@@ -1,0 +1,49 @@
+create database yashvartak
+
+use yashvartak
+
+CREATE TABLE Persons (
+    Personid int IDENTITY(10,5) PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int
+);
+
+INSERT INTO Persons (FirstName,LastName)VALUES 
+('Lars','Monsen'),
+('yash','vartak'),
+('yash','vartak'),
+('yash','vartak'),
+('yash','vartak')
+
+select * from Persons
+
+drop table Persons
+truncate  table Persons
+
+--------------------------------------------------------------------------------------------------------------------
+CREATE SEQUENCE 
+
+SequenceCounter
+AS INT
+START WITH 5
+INCREMENT BY 2
+
+create table data 
+(
+id int,
+name varchar(30)
+)
+
+select * from data
+
+insert into data values
+(NEXT VALUE FOR SequenceCounter,'julkar'),
+(NEXT VALUE FOR SequenceCounter,'kiran'),
+(NEXT VALUE FOR SequenceCounter,'amit'),
+(NEXT VALUE FOR SequenceCounter,'suraj'),
+(NEXT VALUE FOR SequenceCounter,'mohan')
+
+select * from data
+
+drop sequence SequenceCounter

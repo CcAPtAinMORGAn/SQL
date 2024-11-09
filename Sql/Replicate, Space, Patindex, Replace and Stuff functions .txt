@@ -1,0 +1,55 @@
+CREATE TABLE Users (
+    Id INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100)
+);
+INSERT INTO Users (Id, FirstName, LastName, Email) VALUES
+(1, 'Sam', 'Sony', 'Sam@aaa.com'),
+(2, 'Ram', 'Barber', 'Ram@aaa.com'),
+(3, 'Sara', 'Sanosky', 'Sara@ccc.com'),
+(4, 'Todd', 'Gartner', 'Todd@bbb.com'),
+(5, 'John', 'Grover', 'John@aaa.com'),
+(6, 'Sana', 'Lenin', 'Sana@ccc.com'),
+(7, 'James', 'Bond', 'James@bbb.com'),
+(8, 'Rob', 'Hunter', 'Rob@ccc.com'),
+(9, 'Steve', 'Wilson', 'Steve@aaa.com'),
+(10, 'Pam', 'Broker', 'Pam@bbb.com');
+
+-- select * from Users
+
+
+-- SELECT REPLICATE('Pragim', 3)
+
+-- Select FirstName, LastName, SUBSTRING(Email, 1, 2) 
+-- + REPLICATE('*',5) + 
+-- SUBSTRING(Email, CHARINDEX('@',Email), LEN(Email) - CHARINDEX('@',Email)+1)
+-- as Email
+-- from Users
+
+
+-- SUBSTRING(Email, 1, 2): This extracts the first two 
+-- characters of the email.
+-- REPLICATE('*', 5): This generates a string of five asterisks.
+-- SUBSTRING
+-- (Email, CHARINDEX('@', Email), LEN(Email) - CHARINDEX('@', Email) + 1):
+-- This extracts the domain part of the email,
+-- starting from the "@" symbol to the end.
+-- Example Output:
+-- For the email Sam@aaa.com, the output will be Sa*****@aaa.com.
+
+-- Select FirstName + SPACE(2) + LastName as FullName
+-- From Users
+
+
+-- Select Email, PATINDEX('%@aaa.com', Email) as FirstOccurence 
+-- from Users
+-- Where PATINDEX('%@aaa.com', Email) > 0
+
+
+-- Select Email, REPLACE(Email, '.com', '.net') as ConvertedEmail
+-- from  Users
+
+Select FirstName, LastName,Email, STUFF(Email, 2, 3, '*****') as StuffedEmail
+From Users
+

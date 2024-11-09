@@ -1,0 +1,138 @@
+  CREATE TABLE personal_details
+(
+sr_no int primary key,
+  name VARCHAR(50),
+  gender varchar(10),
+  age int
+)
+
+select*from personal_details
+
+insert into personal_details (sr_no,name,gender,age)VALUES
+(1,'yash','Male',21),
+(2,'ash','Male',21),
+(3,'john','Male',21),
+(4,'sophia','Female',21);
+
+delete personal_details where sr_no=4
+
+delete personal_details
+
+-------------truncate
+
+select*from personal_details
+
+-----------------------DELETE is a SQL command that removes one or multiple rows from a table using conditions. TRUNCATE is a SQL -----------------------------command that removes all the rows from a table without using any condition.
+
+truncate table personal_details
+
+-----------drop table
+drop table personal_details
+
+-----------if,else
+declare @W varchar(100)
+set @W = 'Hansa'
+print(@W)
+
+declare @W int
+set @W=42
+print concat (@W,' yash')
+
+
+declare @W varchar(100)
+set @W = 'Hansa'
+print(@W +' school')
+
+declare @W varchar(100)
+set @W='Hansa'
+print concat (@W,'School',201)
+
+-----------if else
+declare @age int
+set @age = 18
+
+if(@age > 18)
+  print('you are eligible')
+else
+  print('you are not eligible')
+
+-------else if
+declare @age int
+set @age = 18
+
+if(@age > 18 )
+  print('you are eligible')
+else if(@age=18)
+  print('next year')
+else
+print('you are not eligible')
+
+-----begin end
+
+declare @age int
+set @age=18
+
+if(@age>18)
+begin
+  print('you are eligible')
+  print('Nitin')
+end
+else if @age=18
+begin
+  print('Next year')
+  print('Nitin')
+end
+else
+begin
+  print('you are not elligible')
+  print('Nitin')
+end
+-------------------------using and condition
+declare @age int
+declare @income int
+
+set @age=17
+set @income=17000
+
+if(@age>18 and @income>19000)
+begin
+  print('you are eligible')
+  print('Nitin')
+end
+else if @age=18 and @income=19000
+begin
+  print('Next year')
+  print('Nitin')
+end
+else
+begin
+  print('you are not elligible')
+  print('Nitin')
+end
+-------------------------even odd
+declare @x int
+set @x = 17
+
+if (@x % 2 = 0)
+	print('It is an even number')  
+else
+	print('It is an odd number')
+
+--------------------------positive negative
+declare @x int
+set @x=-0.1
+if(@x>0)
+	print('It is an positive number')
+else IF(@x=0)
+	print('Neither positive number nor Negative number')
+else
+	print('It is an negative number')
+
+---------------------------vowel consonant
+declare @x varchar(100)
+set @x='c'
+if(@x in ('a','e','i','o','u'))
+	print('It is a  vowel.')
+
+else IF (@x not in ('a','e','i','o','u') AND @x BETWEEN 'a' AND 'z')
+	print('It is a consonant.')

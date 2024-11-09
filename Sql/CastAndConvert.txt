@@ -1,0 +1,61 @@
+CREATE TABLE People (
+    Id INT PRIMARY KEY,
+    Name VARCHAR(50),
+    DateOfBirth DATETIME
+);
+
+INSERT INTO People (Id, Name, DateOfBirth) VALUES
+(1, 'Sam', '1980-12-30 00:00:00.000'),
+(2, 'Pam', '1982-09-01 12:02:36.260'),
+(3, 'John', '1985-08-22 12:03:30.370'),
+(4, 'Sara', '1979-11-29 12:59:30.670');
+
+select * from People
+
+SELECT Id, Name, DateOfBirth, CAST(DateOfBirth AS nvarchar) AS ConvertedDOB
+FROM People;
+---or
+SELECT Id, Name, DateOfBirth, CONVERT(nvarchar, DateOfBirth) AS ConvertedDOB
+FROM People;
+
+Select Id, Name, DateOfBirth, Convert(nvarchar, DateOfBirth, 103) as ConvertedDOB
+from People
+
+
+-- 1: mm/dd/yy
+-- 2: mm/dd/yyyy
+-- 3: dd/mm/yy
+-- 4: dd.mm.yy
+-- 5: dd.mm.yyyy
+-- 10: mm-dd-yy
+-- 12: yyyymmdd
+-- 13: dd/mm/yyyy hh:mm:ss
+-- 14: hh:mm:ss (24-hour format)
+-- 20: yyyy-mm-dd hh:mm:ss (ISO 8601 format)
+-- 21: yyyy-mm-dd hh:mm:ss.mmm (with milliseconds)
+
+Select Id, Name, Name + ' - ' + CAST(Id AS NVARCHAR) AS [Name-Id]
+FROM People
+
+
+CREATE TABLE Users (
+    Id INT PRIMARY KEY,
+    Name NVARCHAR(100),
+    Email NVARCHAR(100),
+    RegisteredDate DATETIME
+);
+
+INSERT INTO Users (Id, Name, Email, RegisteredDate) VALUES
+(1, 'John', 'j@j.com', '2012-08-24 11:04:30.230'),
+(2, 'Sam', 's@s.com', '2012-08-25 14:04:29.780'),
+(3, 'Todd', 't@t.com', '2012-08-25 15:04:29.780'),
+(4, 'Mary', 'm@m.com', '2012-08-24 15:04:30.730'),
+(5, 'Sunil', 'sunil@s.com', '2012-08-24 15:05:30.330'),
+(6, 'Mike', 'mike@m.com', '2012-08-26 15:05:30.330');
+
+select * from Users
+
+Select CAST(RegisteredDate as DATE) as RegistrationDate,
+COUNT(Id) as TotalRegistrations
+From Users
+Group By CAST(RegisteredDate as DATE)

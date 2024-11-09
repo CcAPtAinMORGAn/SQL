@@ -1,0 +1,50 @@
+create database teacher
+use teacher
+
+select * from emp
+
+-- Create the emp table
+CREATE TABLE emp (
+    id INT PRIMARY KEY,
+    ename VARCHAR(50)
+);
+
+drop table emp
+-- Insert sample data
+INSERT INTO emp (id, ename) VALUES
+(1, 'Michael'),
+(2, 'Sarah'),
+(3, 'Indira'),
+(4, 'John'),
+(5, 'Alice');
+
+-- Sample queries
+SELECT ascii('A');----------The SQL command SELECT ascii('A'); retrieves the ASCII (American Standard Code for Information Interchange) value of the character 'A'.
+
+SELECT char(65);------------The SQL command SELECT char(65); returns the character that corresponds to the ASCII value of 65.
+
+SELECT ascii('$');-----------ASCII Value: Each character has a specific numeric representation in the ASCII table. For the dollar sign '$', the ASCII value is 36.
+
+SELECT char(36);-------When you run this command, it returns '$', since the ASCII value 36 represents the dollar sign.
+
+SELECT replace('india','i','x');
+
+SELECT replace(ename,'i','x') AS "New Name" FROM emp;
+
+SELECT substring('india is the best', 0, 6);---------------range 0-6 i.e 5 characters
+
+SELECT substring(ename, 0, 4) AS "New Name" FROM emp;
+
+SELECT upper('India');
+
+SELECT upper(ename) FROM emp;
+
+SELECT lower(ename) FROM emp;
+
+SELECT len(ename) FROM emp;
+
+SELECT left(ename, 3) FROM emp;
+
+SELECT right(ename, 3) FROM emp;
+
+SELECT REVERSE(ename) FROM emp;

@@ -1,0 +1,67 @@
+use yashvartak
+
+
+ DROP TABLE pk;
+
+ create table pk
+  (
+   ROll int primary key,--duplicate not allowed,null not allowed
+   Name varchar(100)
+ )
+
+ insert into pk values
+ (1,'yash'),
+ (2,'ash'),
+ (3,'jay'),
+ (4,'salman');
+
+ ---If we were to add (4,'salman') again in the same pk table the comman will fail
+
+ select*from pk	
+
+ insert into pk(Name) values---null not allowed
+('pankaj')
+
+
+--This is what will work as primary key does not allow null values
+---insert into pk (ROll, Name) values
+---(5, 'pankaj');
+
+-------------------------
+
+create table fk
+( 
+  sr_id int foreign key references pk(Roll),--duplicate allow,null allow,but only insert pk values
+  Company varchar(100)
+)
+
+select*from fk
+
+insert into fk values
+(1,'apple'),
+(2,'Microsoft'),
+(3,'Tcs')
+
+---This wont work as in the sr_id we need to have a value which mathes the primary key pk 1,2,3,4,5 in ROLL
+---insert into fk values
+---(1,'apple'),
+---(2,'Microsoft'),
+---(6,'Tcs')
+
+ DROP TABLE fk;
+
+---This will work because null values are allowed
+insert into fk(Company) values
+('dso')
+
+--- This is what will work
+insert into fk(sr_id,Company) values
+(4,'dso')
+
+
+----This command tries to insert a row 
+---where sr_id is missing (null).
+--- If sr_id must have a corresponding value in the pk table and nulls are not allowed, this operation will fail.
+
+insert into fk values
+('tddfs')

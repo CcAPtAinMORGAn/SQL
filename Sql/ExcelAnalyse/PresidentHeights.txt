@@ -1,0 +1,47 @@
+create database xyz
+
+use xyz
+-----How to import data from excel
+----Right click on database xyz then click on task then import data click on data source as microsoft excel
+
+------https://learn.microsoft.com/en-us/sql/relational-databases/import-export/import-data-from-excel-to-sql?view=sql-server-ver16
+
+
+
+----How to export sql querie output data to excel
+----Right click on database xyz then click on task then export data click on data source as SQL server native client 11.0
+----Then click on next then select source as microsoft excel then click on browse then put any name in file name make 
+----sure same file does not exist do not put .xls in file it will come by default when u click on open
+----Then click on next then select write a query to specify data transfer then click on next then paste the sql query in the 
+----sql statement notepad and then finish process
+
+
+
+
+select * from PresidentHeights
+
+SELECT COUNT([height(cm)]) AS Total_PresidentHeights FROM PresidentHeights;
+
+SELECT AVG([height(cm)]) AS Average_Value FROM PresidentHeights;
+
+SELECT MAX([height(cm)]) AS Max_Value, MIN([height(cm)]) AS Min_Value FROM PresidentHeights;
+
+SELECT name, [height(cm)]
+FROM PresidentHeights
+WHERE [height(cm)] > (SELECT AVG([height(cm)]) FROM PresidentHeights);
+
+
+SELECT 
+    CASE 
+	WHEN [height(cm)] < 170 THEN '169 and below'
+        WHEN [height(cm)] BETWEEN 170 AND 180 THEN '170-180'
+        WHEN [height(cm)] BETWEEN 181 AND 190 THEN '181-190'
+        WHEN [height(cm)] > 190 THEN '191 and above'
+    END AS Value_Range,
+    COUNT(*) AS Count
+FROM PresidentHeights
+GROUP BY [height(cm)];
+
+
+
+

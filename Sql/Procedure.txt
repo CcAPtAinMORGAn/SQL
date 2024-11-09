@@ -1,0 +1,113 @@
+
+create database yash
+
+use yash
+
+create table people
+(
+Name varchar(50),
+Age int,
+Gender varchar(10),
+Income Decimal(10,2)
+)
+
+insert into people(Name,Age,Gender,Income) values
+('Alice',28,'Female',60000),
+('Bob',34,'Male',75000),
+('Charlie',22,'Male',50000),
+('Diana',45,'Female',85000),
+('Ethan',38,'Male',72000),
+('Fiona',37,'Female',64000),
+('George',40,'Male',95000),
+('Hannah',35,'Female',78000),
+('Ian',29,'Male',67000),
+('Julia',38,'Female',88000)
+
+select * from people
+
+----sp store procedure
+
+create procedure d
+as
+begin
+	print('Good')
+end
+d
+-------------------
+alter procedure d
+as
+begin
+	select * from people
+end
+
+execute d
+exec d
+d
+-------------------
+create proc ne
+as
+begin
+	select * from people where Gender='Male'
+	select * from people where Age>25
+end
+ne
+---------------------
+
+create proc nej
+@t varchar (100),
+@n int
+as
+begin
+	select * from people where Gender=@t
+	select * from people where Age>@n
+end
+
+DROP PROCEDURE nej;
+
+
+nej 'Female', 30;---Will show two table one where all Gender is Female and other where Age is greater than 30 
+nej 'Male', 34;--Will show two table one where all Gender is Male and other where Age is greater than 34 
+nej 'Female', 34;--Will show two table one where all Gender is Female and other where Age is greater than 34
+
+create proc df
+@t varchar(100)='Male',-------Gender will be taken Male by default
+@n int = 20
+as
+begin
+	select * from people where Gender=@t
+	select * from people where Age>@n
+end
+df 'Female',30
+drop proc df
+df 
+-----When we use only df it is taking 'Male',20 by  default and 
+----showing two tables where one has all Gender as Male and other has Age above 20
+
+select * from people
+
+
+
+create procedure x
+as
+begin
+SELECT Gender, SUM(Income) AS "total salary" FROM people WHERE Gender = 'Male' GROUP BY Gender;
+end
+x
+--select Gender,max(Income)"max salary" from people group by Gender 
+
+create procedure y
+as
+begin
+
+SELECT TOP 1 Name, Income
+FROM people
+WHERE Gender = 'Male'
+ORDER BY Income DESC;
+
+SELECT TOP 1 Name, Income
+FROM people
+WHERE Gender = 'Male'
+ORDER BY Income ASC;
+
+
+	

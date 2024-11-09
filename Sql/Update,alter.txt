@@ -1,0 +1,68 @@
+create database yashvartak
+
+use yashvartak
+
+CREATE TABLE tree (
+    Name VARCHAR(50),
+    age INT,
+    gender VARCHAR(10),
+    income DECIMAL(10, 2)
+);
+
+drop table tree;
+
+select*from tree; 
+
+INSERT INTO tree (Name,age,gender,income) VALUES
+('yash',45,'Male',50000),
+('ash',51,'Male',40000),
+('jay',52,'Male',30000),
+('khushi',34,'Female',20000)
+
+--------------------------order by
+select * from tree
+
+select * from tree order by income
+
+select * from tree order by income desc
+
+-------------------------update
+
+update tree set name='kamlesh' where name='yash'
+
+select*from tree
+
+update tree set name='khushi',age=36 where age=34
+
+update tree set name=null where age=36
+
+update tree set name='khushi' where age=36
+
+update tree set name='hero' where age>=45
+
+update tree set age=25 where income>=20000
+--------------------------is null,is not null
+select * from tree where name is null
+
+select * from tree where name is not null
+
+select*from tree  order by age desc
+------------------alter add column
+select * from tree
+
+alter table tree add s1 int
+
+
+update tree set s1=1000 where name='jay'
+
+alter table tree add s2 varchar(100),s3 float
+
+update tree set s2='shah' where name='jay'
+
+update tree set s3=1000 where name='khushi'
+
+-----------------alter drop column
+
+alter table tree drop column s1
+
+alter table tree drop column s2,s3

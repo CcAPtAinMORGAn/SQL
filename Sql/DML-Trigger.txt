@@ -1,0 +1,78 @@
+CREATE TABLE tblEmployee
+(
+  Id int Primary Key,
+  Name nvarchar(30),
+  Salary int,
+  Gender nvarchar(10),
+  DepartmentId int
+)
+
+truncate table tblEmployee
+------------------Insert data into tblEmployee table
+Insert into tblEmployee values (1,'John', 5000, 'Male', 3)
+Insert into tblEmployee values (2,'Mike', 3400, 'Male', 2)
+Insert into tblEmployee values (3,'Pam', 6000, 'Female', 1)
+
+select * from tblEmployee
+
+-----------------------------------------------------------------------------------------------
+CREATE TABLE tblEmployeeAudit
+(
+  Id int identity(1,1) primary key,
+  AuditData nvarchar(4000)
+)
+
+select * from tblEmployeeAudit
+drop table tblEmployeeAudit
+
+----------------------------------------------------------------------------
+CREATE TRIGGER tr_tblEMployee_ForInsert
+ON tblEmployee
+FOR INSERT
+AS
+BEGIN
+ Declare @Id int
+ Select @Id = Id from inserted
+ 
+ insert into tblEmployeeAudit 
+ values('New employee with Id  = ' + Cast(@Id as nvarchar(5)) + ' is added at ' + cast(Getdate() as nvarchar(20)))
+END
+
+drop trigger tr_tblEMployee_ForInsert
+
+--In the trigger, we are getting the id from inserted table. 
+--So, what is this inserted table? INSERTED table,
+--is a special table used by DML triggers. When you add a new row into tblEmployee table,
+--a copy of the row will also be made into inserted table,
+--which only a trigger can access
+
+select * from tblEmployeeAudit 
+
+Insert into tblEmployee values (7,'Tan', 2300, 'Female', 3)
+
+CREATE TRIGGER tr_tblEMployee_ForDelete
+ON tblEmployee
+FOR DELETE
+AS
+BEGIN
+ Declare @Id int
+ Select @Id = Id from deleted
+ 
+insert into tblEmployeeAudit values
+ ('An existing employee with Id  = ' + Cast(@Id as nvarchar(5)) + ' is deleted at ' + Cast(Getdate() as nvarchar(20)))
+END
+
+drop trigger tr_tblEMployee_ForDelete
+
+
+delete  from tblEmployee where Name = 'Mike'
+
+select * from tblEmployeeAudit 
+
+select * from tblEmployee 
+
+
+
+
+--The only difference here is that, we are specifying,
+--the triggering event as DELETE and retrieving the deleted row ID from DELETED table.

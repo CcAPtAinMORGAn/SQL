@@ -1,0 +1,77 @@
+use yash2
+
+--use this to load table
+select * from tree
+
+-- Create the table
+CREATE TABLE tree (
+    name VARCHAR(50),
+    age INT,
+    gender VARCHAR(10),
+    income DECIMAL(10, 2)
+);
+
+--use this to delete table
+DROP TABLE tree;
+
+INSERT INTO tree (name, age, gender, income) VALUES
+('Alice', 25, 'Female', 50000.00),
+('Bob', 30, 'Male', 60000.00),
+('Carol', 22, 'Female', 48000.00),
+('David', 35, 'Male', 75000.00),
+('Eve', 29, 'Female', 55000.00),
+('Frank', 40, 'Male', 80000.00),
+('Grace', 31, 'Female', 50000.00),
+('Hank', 27, 'Male', 65000.00),
+('Ivy', 33, 'Female', 52000.00),
+('Jack', 28, 'Male', 69000.00),
+('Yash', 22, 'Male', 69000.00);
+
+-----------------------------select 
+
+--This gives age from tree
+select age from tree
+
+--This gives gender from tree
+select gender from tree
+
+--This gives income from tree
+select income from tree
+
+select age,name from tree
+
+----------------where 
+select * from tree where age>30
+select * from tree where age>=30
+select * from tree where age<30
+select * from tree where age<=30
+select * from tree where age=30
+
+------------------gender and name 
+select * from tree where gender='Male'
+select * from tree where name='Bob'
+
+--This gives age not equal to 30 from tree
+select * from tree where age!=30
+
+--This gives age not equal to 30 from tree
+select * from tree where age<>30
+
+select * from tree where income=50000
+
+---------------------and,or,between
+select * from tree where age>30 and age<40
+select * from tree where age>300 and age<40
+select * from tree where age>300 or age<40
+select * from tree where age between 30 and 40
+select * from tree where age>=30 and age<=40
+
+--------------------in ,not in
+select * from tree
+select * from tree where name in ('Bob','Alice')
+select * from tree where name not in ('Bob','Alice')
+
+---------------top ,percent
+select top 1 * from tree
+select top 3 * from tree
+select top 30 percent * from tree

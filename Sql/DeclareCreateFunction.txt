@@ -1,0 +1,109 @@
+create database yashvartak
+
+use yashvartak
+
+create function z1()
+returns varchar(100)
+as
+begin
+	return'hello'
+end
+
+select dbo.z1()
+
+----------
+create function z2(@a int)
+returns int
+as
+begin
+	return @a*@a
+end
+
+select dbo.z2(8)
+-------------
+create function z3(@a int,@b int)
+returns int
+as
+begin
+	return @a*@b
+end
+
+select dbo.z3(8,9)
+
+--------------------voting
+
+create function zvote(@age int)
+returns varchar(100)
+as
+begin
+	declare @msg varchar(100)
+	if (@age>18)
+	set @msg='you are elligible'
+	else if (@age=18)
+	set @msg='Next Year'
+	else
+	set @msg='you are not elligible'
+	return @msg
+end
+
+select dbo.zvote(19)
+select dbo.zvote(18)
+select dbo.zvote(8)
+
+-----------------positive negative
+create function xnum(@x int)
+returns varchar(100)
+as
+begin
+	declare @msg varchar(100)
+	if (@x>0)
+	set @msg='Positive number'
+	else if (@x=0)
+	set @msg='Neither Positive or Negative'
+	else
+	set @msg='Negative number'
+	return @msg
+end
+DROP FUNCTION dbo.xnum;
+
+
+select dbo.xnum(0)
+select dbo.xnum(-1)
+select dbo.xnum(1)
+
+------------------even odd
+create function znum(@x int)
+returns varchar(100)
+as
+begin
+	declare @msg varchar(100)
+	if (@x % 2=0)
+	set @msg='It is an even number'
+	else
+	set @msg='It is an odd number'
+	return @msg
+end
+DROP FUNCTION dbo.znum;
+
+
+select dbo.znum(2)
+select dbo.znum(3)
+----------------------vowel consonant
+create function ynum(@x varchar)
+returns varchar(100)
+as
+begin
+	declare @msg varchar(100)
+	if (@x='a' or @x='e' or @x='i' or @x='o' or @x='u')
+	set @msg='It is vowel'
+	else if (@x != 'a' AND @x != 'e' AND @x != 'i' AND @x != 'o' AND @x != 'u' AND @x BETWEEN 'a' AND 'z')
+	set @msg='It is a consonant'
+	return @msg
+end
+DROP FUNCTION dbo.ynum;
+
+
+select dbo.ynum('a')
+select dbo.ynum('A')
+select dbo.ynum('z')
+select dbo.ynum('Z')

@@ -1,0 +1,46 @@
+CREATE DATABASE yash
+USE yash
+CREATE TABLE TestTable
+(
+   ID INT NOT NULL,
+   Value INT NOT NULL,
+   PRIMARY KEY (ID)
+)
+
+select * from TestTable
+
+BEGIN TRANSACTION 
+ 
+INSERT INTO TestTable( ID, Value )
+VALUES  
+( 1, 10)
+   -- this will create a savepoint after the first INSERT
+   
+
+ select * from TestTable
+
+INSERT INTO TestTable( ID,Value)VALUES
+( 2, 20)
+
+select * from TestTable
+
+SAVE TRANSACTION s1
+     
+INSERT INTO TestTable( ID, Value )VALUES
+( 3, 30)
+
+  
+select * from TestTable
+
+INSERT INTO TestTable( ID, Value ) VALUES  
+( 4, 40)
+
+   -- this will rollback to the savepoint right after the first INSERT was done
+ROLLBACK TRANSACTION s1
+
+select * from TestTable
+
+-- this will commit the transaction leaving just the first INSERT 
+COMMIT
+ 
+SELECT * FROM TestTable

@@ -1,0 +1,46 @@
+create database yashv
+
+use yashv
+
+create table company
+(
+id int,
+name varchar(200)
+)
+
+insert into company values
+(1,'ankit'),
+(2,'aman'),
+(3,'jayesh'),
+(4,'mohit'),
+(5,'shalu'),
+(6,'ajay'),
+(7,'riya'),
+(8,'sunil'),
+(9,'anuj'),
+(10,'ankita');
+
+drop table company
+
+select * from company
+
+select * from company where name like 'a%'------------starts with a
+
+select * from company where name like '%a'------------Ends with a
+
+select * from company where name like '%a%'-----------Word has a in it
+
+select * from company where name like '______'--------Number of dash equals number of letters in the word
+
+select * from company where name like '_n_i_'---------Word with letters n and i at 2nd and 4th place
+
+select * from company where name like '[asm]%'--------All the words which start with letter a s m.
+
+select * from company where name like '%[asm]'--------All the words which end with letter a s m.
+
+select * from company where name like '%[a-s-m]'
+
+--------The query retrieves all rows from the company table where 
+--------the name ends with any letter between a to s or m.
+
+

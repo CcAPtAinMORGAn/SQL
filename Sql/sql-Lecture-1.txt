@@ -1,0 +1,21 @@
+create database yash1
+use yash1
+-------------------------------
+create table d1
+(
+ROLL int,
+Name varchar(100),
+income float
+)
+
+select*from d1
+
+insert into d1 values
+(1,'yash',1000)
+
+insert into d1 values
+(2,'kajal',2000),
+(3,'PANKAJ',3000)
+
+insert into d1(Name)values
+('pankaj')

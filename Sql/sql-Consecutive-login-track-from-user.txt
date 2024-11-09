@@ -1,0 +1,47 @@
+
+--From the login_details table, fetch the users who logged in consecutively 3 or more times.
+--We need to fetch users who have appeared 3 or more times consecutively in login details table.
+--Table Structure:
+
+select * from login_details
+
+CREATE TABLE login_details (
+    login_id INT PRIMARY KEY,
+    user_name VARCHAR(50) NOT NULL,
+    login_date DATE
+);
+
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (101, 'Michael', CAST(GETDATE() AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (102, 'James', CAST(GETDATE() AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (103, 'Stewart', CAST(DATEADD(DAY, 1, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (104, 'Stewart', CAST(DATEADD(DAY, 1, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (105, 'Stewart', CAST(DATEADD(DAY, 1, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (106, 'Michael', CAST(DATEADD(DAY, 2, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (107, 'Michael', CAST(DATEADD(DAY, 2, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (108, 'Stewart', CAST(DATEADD(DAY, 3, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (109, 'Stewart', CAST(DATEADD(DAY, 3, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (110, 'James', CAST(DATEADD(DAY, 4, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (111, 'James', CAST(DATEADD(DAY, 4, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (112, 'James', CAST(DATEADD(DAY, 5, GETDATE()) AS DATE));
+INSERT INTO login_details (login_id, user_name, login_date) VALUES (113, 'James', CAST(DATEADD(DAY, 6, GETDATE()) AS DATE));
+
+
+--query (self join)
+SELECT DISTINCT ld1.user_name
+FROM login_details ld1
+INNER JOIN login_details ld2 ON ld1.login_id + 1 = ld2.login_id AND ld1.user_name = ld2.user_name
+INNER JOIN login_details ld3 ON ld1.login_id + 2 = ld3.login_id AND ld1.user_name = ld3.user_name;
+
+;
+
+--query (LEAD window function)
+select distinct repeated_names
+from (
+select LOGIN_ID, USER_NAME, LOGIN_DATE,
+case when user_name = lead(user_name) over(order by login_id)
+and  user_name = lead(user_name,2) over(order by login_id)
+---when we put 1 it means user has logged in consecutively more than one times
+---when we put 2 it means user has logged in consecutively more than two times
+then user_name else null end as repeated_names
+from login_details) x
+where x.repeated_names is not null;

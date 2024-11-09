@@ -1,0 +1,46 @@
+CREATE TABLE emp (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    sal DECIMAL(10, 2),
+    comm DECIMAL(10, 2)
+);
+
+INSERT INTO emp (emp_id, emp_name, sal, comm) VALUES
+(1, 'Alice', 6000.00, NULL),
+(2, 'Bob', 4500.00, 300.00),
+(3, 'Charlie', 5000.00, NULL),
+(4, 'David', 8000.00, 500.00),
+(5, 'Eve', 3000.00, NULL),
+(6, 'Frank', 7500.00, 200.00),
+(7, 'Grace', 2000.00, NULL),
+(8, 'Hannah', 9000.00, 800.00),
+(9, 'Ivy', 4000.00, NULL),
+(10, 'Jack', 5000.00, 400.00);
+
+
+select * from emp where sal>5000
+select * from emp where sal>=5000
+select * from emp where sal<5000
+select * from emp where sal<=5000
+select * from emp where sal=5000
+select * from emp where sal!=5000
+select * from emp where sal<>5000
+
+------------logical operator--------------
+
+select * from emp where sal>=4000 and sal<=8000
+
+  ---------or---------
+
+ select * from emp where sal between 4000 and 8000
+
+select * from emp where sal=5000 or sal=8000
+
+select * from emp where sal in(2000,3000,4000,5000)
+
+select * from emp where sal not in(2000,3000,4000,5000)
+
+select * from emp
+
+select * from emp where comm is null
+select * from emp where comm is not null

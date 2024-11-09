@@ -1,0 +1,60 @@
+create database yashvartak
+
+use yashvartak
+
+
+ DROP TABLE pk;
+
+ create table pk
+  (
+   ID int primary key,--duplicate not allowed,null not allowed
+   Name varchar(100),
+   Gender varchar(100)
+  )
+
+ insert into pk values
+ (1,'yash','Male'),
+ (2,'ash','Male'),
+ (3,'jay','Male'),
+ (4,'saloni','Female');
+
+
+ select*from pk	
+
+
+create table fk
+( 
+  sr_id int foreign key references pk(ID),--duplicate allow,null allow,but only insert pk values
+  Company varchar(100),
+  Code int primary key,
+  Address varchar(100),
+  Profession varchar(100)
+)
+
+select*from fk
+
+insert into fk values
+(1,'apple',101,'Mumbai','Engineer'),
+(2,'Microsoft',102,'Mumbai','Engineer'),
+(3,'Tcs',103,'Mumbai','Engineer'),
+(4,'Itech',104,'Mumbai','Engineer')
+
+
+create table fky
+ (
+   Info varchar(100), 
+   Leaves int,
+   Code int foreign key references fk(Code)----fk(Code) is used because we have used Code as primary key in table fk
+ )
+
+insert into fky values
+('Fresher',1,101),
+('Fresher',2,102),
+('Experienced',3,103),
+('Fresher',4,104)
+
+-----we cannot insert ('Fresher',4,105) because primary  key doesn't allow
+
+drop table fky
+
+select*from fky

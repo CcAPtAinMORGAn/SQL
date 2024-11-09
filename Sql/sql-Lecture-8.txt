@@ -1,0 +1,165 @@
+create database yashv
+
+use yashv
+
+create table pr
+(
+roll int primary key,
+name varchar(20),
+)
+
+select * from pr
+
+drop table pr
+
+insert into pr values
+(1,'ram'),
+(2,'vishnu'),
+(3,'shiva')
+
+truncate table pr
+
+create table foren
+(
+roll int foreign key references pr(roll),
+name varchar(20)
+)
+
+select * from foren
+
+insert into foren values
+(1,'krishna'),
+(2,'ram'),
+(3,'vishnu')
+
+drop table foren
+
+select * from pr
+select * from  foren
+
+
+
+-----------------------------------------------------------------Delete using casacade
+create table pr
+(
+roll int primary key,
+name varchar(20)
+)
+
+select * from pr
+
+drop table pr---
+
+insert into pr values
+(1,'ram'),
+(2,'vishnu'),
+(3,'shiva')
+
+
+
+create table foren
+(
+roll int foreign key references pr(roll)
+on delete cascade,
+---on update cascade,
+name varchar(20)
+)
+
+insert into foren values
+(1,'krishna'),
+(2,'ram'),
+(3,'vishnu')
+
+drop table foren---
+
+select * from pr
+select * from  foren
+
+delete pr where roll=2----After deleting, the primary table is affected we need to restore it as previous table
+
+update pr set roll=5 where roll=3
+
+
+-----------------------------------------------------------Delete using null
+
+create table pr
+(
+roll int primary key,
+name varchar(20)
+)
+
+select * from pr
+
+drop table pr
+
+insert into pr values
+(1,'ram'),
+(2,'vishnu'),
+(3,'shiva')
+
+drop table foren
+
+
+
+create table foren
+(
+roll int foreign key references pr(roll)
+on delete set null,
+----on update set null,
+name varchar(20)
+)
+
+insert into foren values
+(1,'krishna'),
+(2,'ram'),
+(3,'vishnu')
+
+select * from pr
+select * from foren
+
+----Here roll=2 will be deleted in primary key and in foreign key it will be replaced as null
+delete pr where roll=2----After deleting, the primary table is affected we need to restore it as previous table
+
+update pr set roll=5 where roll=3
+
+------------------------------------------------------------Delete using default
+
+create table pr
+(
+roll int primary key,
+name varchar(20)
+)
+
+select * from pr
+
+drop table pr
+
+insert into pr values
+(1,'ram'),
+(2,'vishnu'),
+(3,'shiva')
+
+drop table foren
+
+create table foren
+(
+roll int default 3 foreign key references pr(roll)
+on delete set default,
+---on update set default,
+name varchar(20)
+)
+
+insert into foren values
+(1,'krishna'),
+(2,'ram'),
+(3,'vishnu')
+
+select * from pr
+select * from foren
+
+----Here after deleting the roll=2 in primary key ,roll=2 in  foreign key will become roll=3 in foreign key
+delete pr where roll=2----After deleting, the primary table is affected we need to restore it as previous table
+
+update pr set roll=5 where roll=2
+----Here we cannot use "update pr set roll=5 where roll=3" because roll=3 is used as default in 
+---roll int default 3 foreign key references pr(roll)

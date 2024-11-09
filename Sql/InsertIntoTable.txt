@@ -1,0 +1,64 @@
+create database yash
+
+create table un1
+(
+Roll int unique,
+Name varchar(100)
+)
+
+select*from un1
+
+insert into un1 values
+(1,'a'),
+(2,'b')
+
+INSERT INTO un1(Name) VALUES
+('KAMLESH')
+
+--------NOT NULL
+CREATE TABLE NT
+(
+ROLL INT NOT NULL,
+NAME VARCHAR (100)
+)
+
+INSERT INTO NT VALUES
+(1,'A')
+
+
+SELECT*FROM NT
+
+INSERT INTO NT(Name) VALUES----------------THIS WILL NOT WORK
+('Z')
+
+CREATE TABLE CHK
+(
+AGE INT CHECK(Age>18),
+Name varchar (100)
+)
+
+SELECT*FROM CHK
+
+
+INSERT INTO CHK VALUES
+(20,'HARSH')
+
+
+INSERT INTO CHK VALUES----THIS WILL NOT TWORK
+(18,'HARSH')
+
+CREATE TABLE DF
+(
+ROLL INT DEFAULT 0,
+NAME VARCHAR (100)
+)
+
+
+INSERT INTO DF VALUES----THIS WILL NOT TWORK
+(1,'DARSHIT')
+
+INSERT INTO DF(Name)values---INSTEAD OF NULL 0 WILL BE PRINTED
+('pankaj')
+
+
+select*from DF

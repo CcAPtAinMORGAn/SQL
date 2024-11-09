@@ -1,0 +1,57 @@
+create database yash 
+use yash
+create table employee
+(
+id int,
+name varchar(40),
+sal int,
+dname varchar(40)
+)
+
+INSERT INTO employee (id, name, sal, dname) VALUES
+(1,'joe',60000,'IT'),
+(2, 'jim', 90000, 'IT'),
+(3, 'harry', 80000, 'HR'),
+(4, 'sam', 60000, 'HR'),
+(5, 'max', 90000, 'IT'),
+(6, 'jerry', 50000, 'HR'),
+(7, 'suzzan', 900000, 'HR'),
+(8, 'tom', 100000, 'IT');
+
+-----------------------------------------------------------------------
+select*from employee
+select sum(sal) from employee
+select sum(sal) over() from employee
+select *, sum(sal) over() from employee
+select *, sum(sal) over() as Total from employee
+select *, sum(sal) over(partition by dname) as Total from employee
+-----------------------------------------------------------------------
+
+---rank()-(Count the repeated number in rank)--
+
+select *,rank()over(order by sal asc) "rank" from employee
+select *,rank()over(order by sal desc)as rank from employee
+
+---dense_rank()-(Does not Count the repeated number in rank)--
+
+select *,dense_rank()over(order by sal asc)as rank from employee
+select *,dense_rank()over(order by sal desc)as rank from employee
+
+---row_number (No repeated number in rank)----
+
+select *,row_number()over(order by sal asc)as rank from employee
+
+---rank() with partition-(It has two department name HR and IT and partition into two parts in ascending order)--
+---since it is dense_rank it Counts the repeated number in rank
+select *,rank()over(partition by dname order by sal asc)as rank from employee
+
+
+---dense_rank() with partition-(It has two department name HR and IT and partition into two parts in ascending order)--
+---since it is dense_rank it does not Count the repeated number in rank
+select *,dense_rank()over(partition by dname order by sal asc)as rank from employee
+
+
+---row_number() with partition-(It has two departname HR and IT and partition into two parts then rank )--
+select *,row_number()over(partition by dname order by sal asc)as rank from employee
+---since it is row_number there is no repeated number in rank
+

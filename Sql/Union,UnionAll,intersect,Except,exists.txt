@@ -1,0 +1,84 @@
+
+	create database yash
+
+	use yash
+
+	create table cmp
+	(
+	SR_NO int,
+	Company varchar(100)
+	)
+
+insert into cmp values
+(1,'Tcs'),
+(2,'B'),
+(30,'How'),
+(90,'Google')
+
+truncate table cmp
+select * from cmp
+
+create table bk
+(
+Roll int,
+name varchar(100)
+)
+drop table bk
+insert into bk values
+(1,'A'),
+(2,'B'),
+(3,'C'),
+(4,'D')
+
+select * from bk
+select * from cmp
+
+
+-------------------------------union
+
+select * from bk
+union   ------combines two table into one and if common values are there it shows it as one value which is there in both table
+select * from cmp
+
+-------------------------------union all
+select * from bk
+union  all  ------combines two table into one and if common values are there it does not show it as one value which is there in both table
+select * from cmp
+-------------------------------intersect
+select * from bk
+intersect  ------Shows common value in both table
+select * from cmp
+-------------------------except for bk
+select * from bk
+except  ------Shows value in both table which are not common in both table for bk
+select * from cmp
+-------------------------except for cmp
+select * from cmp
+except  ------Shows value in both table which are not common in both table for cmp
+select * from bk
+---------------------Exists
+------select * from bk
+if exists (select * from bk where name='A')
+	print('yes')
+else
+	print('no')
+---select and run both if else conditions
+
+----------------Does Not Exist
+if not exists (select * from bk where name='A')
+	print('yes')
+else
+	print('no')
+---since name='A' exists in the table no will be generated in output
+
+-----------------------
+select name,roll from bk
+union
+select Company,SR_NO from cmp
+ 
+
+
+
+
+
+

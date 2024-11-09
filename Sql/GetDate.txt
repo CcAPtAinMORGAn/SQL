@@ -1,0 +1,95 @@
+create database yashvartak
+
+use yashvartak
+
+select GETDATE()
+
+select CURRENT_TIMESTAMP
+
+select SYSDATETIME()
+
+------------------------------datepart
+
+select DATEPART(YEAR,GETDATE())
+select DATEPART(MONTH,GETDATE())
+select DATEPART(DAY,GETDATE())
+select DATEPART(HOUR,GETDATE())
+select DATEPART(MINUTE,GETDATE())
+select DATEPART(SECOND,GETDATE())
+select DATEPART(MILLISECOND,GETDATE())
+select DATEPART(MICROSECOND,GETDATE())
+select DATEPART(WEEK,GETDATE())
+select DATEPART(WEEKDAY,GETDATE())
+select DATEPART(ISO_WEEK,GETDATE())------------Week of the year
+
+---------------------year,month,day
+
+select YEAR(GETDATE())
+select month(GETDATE())
+select day(GETDATE())
+-------------------------datediff
+select DATEDIFF(YEAR,'3/6/1995',GETDATE())
+select DATEDIFF(MONTH,'3/6/1995',GETDATE())
+select DATEDIFF(DAY,'3/6/1995',GETDATE())
+select DATEDIFF(HOUR,'3/6/1995',GETDATE())
+select DATEDIFF(MINUTE,'3/6/1995',GETDATE())
+select DATEDIFF(SECOND,'3/6/1995',GETDATE())
+select DATEDIFF(WEEK,'3/6/1995',GETDATE())
+select DATEDIFF(WEEKDAY,'3/6/1995',GETDATE())
+
+----------------dateadd
+
+select DATEADD(YEAR,5,GETDATE())
+select DATEADD(MONTH,5,GETDATE())
+select DATEADD(DAY,5,GETDATE())
+select DATEADD(HOUR,5,GETDATE())
+select DATEADD(MINUTE,5,GETDATE())
+select DATEADD(SECOND,5,GETDATE())
+select DATEADD(MILLISECOND,5,GETDATE())
+
+-------------Format
+select FORMAT(GETDATE(),'dd:mm:yy')
+select FORMAT(GETDATE(),'ddd:mm:yy')
+select FORMAT(GETDATE(),'dddd:mm:yy')
+select FORMAT(GETDATE(),'dd:MM:yy')
+select FORMAT(GETDATE(),'dddd:MM:yy')
+select FORMAT(GETDATE(),'dddd:MMM:yy')
+select FORMAT(GETDATE(),'dddd:MMMM:yy')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH:mm')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH:mm:ss')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH:mm:ss t')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH:mm:ss tt')
+select FORMAT(GETDATE(),'dd:MMMM:yy HH:mm:ss t')
+select FORMAT(GETDATE(),'dd______MMMM:yyy HH:mm:ss tt')
+select FORMAT(GETDATE(),'dddd:MMMM:yy HH:mm:ss tt','ja-ap')
+
+
+
+
+CREATE TABLE xyz
+(
+    ROLL int,
+    Name varchar(100),
+    income float,
+----Time VARCHAR(20) DEFAULT FORMAT(GETDATE(), 'dddd:MM:yy')  
+    Time VARCHAR(40) DEFAULT FORMAT(GETDATE(),'dd:MMMM:yy HH:mm')
+----Time DATETIME DEFAULT GETDATE() 
+);
+
+DROP TABLE  xyz;
+
+SELECT * FROM xyz;
+
+-- Insert a record into the table
+INSERT INTO xyz (ROLL, Name, income) VALUES 
+(1, 'kajal', 2000),
+(2,'rajesh',3000),
+(3,'guts',3000),
+(4,'yash',3000),
+(5,'sameer',3000),
+(6,'jayesh',3000)
+
+INSERT INTO xyz (ROLL, Name, income) VALUES 
+(7,'Darshit',3000)
+

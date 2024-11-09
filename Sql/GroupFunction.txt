@@ -1,0 +1,70 @@
+---------------------------------group function aggregate function-----------------
+create database teacher
+use teacher
+select * from emp
+drop table emp
+CREATE TABLE emp (
+    emp_id INT PRIMARY KEY,
+    ename VARCHAR(50),
+    sal DECIMAL(10, 2),
+    deptno INT
+);
+
+INSERT INTO emp (emp_id, ename, sal, deptno) VALUES
+(1, 'Alice', 10000, 10),
+(2, 'Bob', 5000, 20),
+(3, 'Carol', 15000, 10),
+(4, 'David', 3000, 30),
+(5, 'Eve', 7000, 20),
+(6, 'Frank', 8000, 30),
+(7, 'Grace', 12000, 10);
+
+
+select sum(sal) "Total salary" from emp
+select max(sal)"max salary" from emp
+select min(sal)"min salary" from emp
+select avg(sal)"avg salary" from emp
+select count(sal)"count salary" from emp
+
+select * from emp
+
+select deptno,sum(sal)"total salary" from emp group by deptno
+
+SELECT deptno, SUM(sal) AS "total salary" FROM emp WHERE deptno = 10 GROUP BY deptno;----------------
+
+
+select deptno,max(sal)"max salary" from emp group by deptno
+
+select deptno,min(sal)"min salary" from emp group by deptno
+
+select deptno,avg(sal)"avg salary" from emp group by deptno
+
+select deptno,count(sal)"count salary" from emp group by deptno-------The query counts how many employees have a salary listed in each department.
+
+SELECT deptno, SUM(sal) AS "total sal", MAX(sal) AS "max",  MIN(sal) AS "min",COUNT(sal) AS "count" FROM emp GROUP BY deptno;
+
+
+
+
+SELECT deptno, ename, sal,SUM(sal) OVER (PARTITION BY deptno) AS "total salary" FROM emp;
+
+
+
+---------
+SELECT deptno, ename, sal,
+    CASE 
+        WHEN ROW_NUMBER() OVER (PARTITION BY deptno ORDER BY ename) = 1 
+        THEN SUM(sal) OVER (PARTITION BY deptno) 
+        ELSE NULL 
+    END AS "total salary"
+FROM emp;
+
+
+
+
+
+------------------having--------------------
+
+select deptno,sum(sal)"total salary" from emp group by deptno having sum(sal)>=17000
+
+select deptno,max(sal)"max salary" from emp group by deptno having max(sal)<=8000

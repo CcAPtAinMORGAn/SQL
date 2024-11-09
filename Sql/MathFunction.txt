@@ -1,0 +1,75 @@
+select round(123.4545,2)
+select round(123.5574,2)
+select FLOOR(123.999) as "floor"
+select ceiling(123.001)
+select pi()
+select sin(90)
+select sqrt(25)
+select POWER(2,3)
+select square(2)
+select tan(45)
+select log(100)
+select log10(100)
+select cot(90)
+select abs(-123)
+select exp(1)
+
+
+
+Select ABS(-101.5) -- returns 101.5, without the - sign.
+
+
+Select POWER(2,3) -- Returns 8
+
+Select RAND(1) -- Always returns the same value
+
+Select FLOOR(RAND() * 100)
+----Every time, you execute this query,
+----you get a random number between 1 and 100.
+
+
+
+Declare @Counter INT
+
+Set @Counter = 1
+
+While(@Counter <= 10)
+---@Counter <= 10 ensures that only 10 random numbers are printed
+
+Begin
+
+ Print FLOOR(RAND() * 100)
+
+ Set @Counter = @Counter + 1
+
+
+End
+
+
+-- Round to 2 places after (to the right) the decimal point
+Select ROUND(850.556, 2) -- Returns 850.560
+
+-- Truncate anything after 2 places, after (to the right) the decimal point
+Select ROUND(850.556, 2, 1) -- Returns 850.550
+
+-- Round to 1 place after (to the right) the decimal point
+Select ROUND(850.556, 1) -- Returns 850.600
+
+-- Truncate anything after 1 place, after (to the right) the decimal point
+Select ROUND(850.556, 1, 1) -- Returns 850.500
+
+-- Round the last 2 places before (to the left) the decimal point
+Select ROUND(850.556, -2) -- 900.000
+
+-- Round the last 1 place before (to the left) the decimal point
+Select ROUND(850.556, -1) -- 850.000
+
+
+
+
+
+
+
+
+
+

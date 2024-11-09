@@ -1,0 +1,88 @@
+create function areacircle(@r float)
+returns float as
+begin
+return (3.14* @r * @r)
+end
+SELECT dbo.areacircle(8.0) AS "Area_of_circle"
+
+---------------------------------------------------
+create function rect(@len float,@brd float)
+returns float as
+begin
+return (@len * @brd)
+end
+SELECT dbo.rect(7,5) AS "Area_of_Rectangle"
+----------------------------------------------------
+
+drop function eveoddnumber
+
+create function eveoddnumber(@n int)
+returns char(100) as
+begin
+DECLARE @return_value CHAR(100);
+	SET @return_value = '';
+    IF (@n % 2=0) SET @return_value = 'Even number';
+    IF (@n % 2!=0) SET @return_value = 'Odd number';
+    RETURN @return_value
+END
+
+Select dbo.eveoddnumber(10) as "Even Or Odd"
+
+--------------------------------------------------
+drop function greater
+
+CREATE FUNCTION greater(@a INT, @b INT)
+RETURNS NVARCHAR(100) AS
+BEGIN
+    DECLARE @result NVARCHAR(100);
+    
+    IF (@a > @b)
+        SET @result = CONCAT(@a, ' is greater than ', @b);
+    ELSE IF (@b > @a)
+        SET @result = CONCAT(@b, ' is greater than ', @a);
+    ELSE
+        SET @result = 'Both numbers are equal';
+    
+    RETURN @result;
+END;
+
+SELECT dbo.greater(10, 20) AS "Comparison Result";
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE tblEmployees
+(
+Id INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
+Name NVARCHAR(50),
+DateOfBirth DATETIME,
+Gender NVARCHAR(50),
+DepartmentId INT
+);
+
+INSERT INTO tblEmployees
+VALUES ('Sam', '1980-12-30', 'Male', 1)
+
+INSERT INTO tblEmployees
+VALUES ('Pam', '1982-09-01 12:02:36.260', 'Female', 2)
+
+INSERT INTO tblEmployees
+VALUES ('John', '1985-08-22 12:03:30.370', 'Male', 1)
+
+INSERT INTO tblEmployees
+VALUES ('Sara', '1979-11-29 12:59:30.670', 'Female', 3)
+
+INSERT INTO tblEmployees
+VALUES ('Todd', '1978-11-29 12:59:30.670', 'Male', 1)
+
+
+select * from tblEmployees
+
+CREATE FUNCTION fn_EmployeesByGender(@Gender nvarchar(10))
+RETURNS TABLE
+AS
+RETURN (Select Id, Name, DateOfBirth, Gender, DepartmentId
+      from tblEmployees
+      where Gender = @Gender)
+
+Select * from fn_EmployeesByGender('Male')
+
