@@ -46,6 +46,10 @@ select * from tree where name is null
 
 select * from tree where name is not null
 
+SELECT * FROM tree WHERE name IS NULL OR income IS NULL;
+
+select * from tree where name is not null and  income is not null
+
 select*from tree  order by age desc
 ------------------alter add column
 select * from tree
