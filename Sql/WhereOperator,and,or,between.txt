@@ -82,6 +82,8 @@ select top 1 from tree
 
 select * from tree
 
+select top 2 * from tree
+
 select top 2 * from tree where gender='Male'
 
 select top 3 * from tree
