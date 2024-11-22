@@ -1,0 +1,149 @@
+use tea
+
+-- Create the OrderDetails table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT NOT NULL,
+    ProductID INT NOT NULL,
+    Quantity INT NOT NULL
+);
+
+-- Insert data into the OrderDetails table
+INSERT INTO OrderDetails (OrderDetailID, OrderID, ProductID, Quantity) VALUES
+(1, 10248, 11, 12),
+(2, 10248, 42, 10),
+(3, 10248, 72, 5),
+(4, 10249, 14, 9),
+(5, 10249, 51, 40);
+
+select * from OrderDetails 
+
+
+SELECT OrderID, Quantity,
+CASE WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+WHEN Quantity = 30 THEN 'The quantity is 30'
+ELSE 'The quantity is under 30'
+END AS QuantityText
+FROM OrderDetails;
+
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------
+-- Create the Customers table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(100) NOT NULL,
+    City VARCHAR(100),
+    Country VARCHAR(100)
+);
+
+select * from Customers
+
+truncate table Customers
+
+drop table Customers
+
+
+-- Insert data into the Customers table
+INSERT INTO Customers VALUES
+(1, 'A','B','C'),
+(2, 'B','C', 'A'),
+(3, 'C', 'A', 'B');
+
+
+---Table will be ordered by City in Alphabetic order if city is null Table will be ordered by Country Alphabetically
+
+
+select * from Customers
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+
+
+
+truncate table Customers
+
+INSERT INTO Customers VALUES
+(1, 'A',null,'C'),
+(2, 'B',null, 'A'),
+(3, 'C', 'A', 'B');
+
+
+select * from Customers
+
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+
+-----when one null it will still order by city
+-----when two null it will order by country as no Alphabet is there to compare 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Employees (
+    EmployeeName VARCHAR(50),
+    Salary INT
+);
+
+INSERT INTO Employees (EmployeeName, Salary) VALUES
+('Alice', 120000),
+('Bob', 75000),
+('Charlie', 45000);
+
+SELECT 
+    EmployeeName,
+    Salary,
+    CASE 
+        WHEN Salary > 100000 THEN 'High Earner'
+        WHEN Salary BETWEEN 50000 AND 100000 THEN 'Mid Earner'
+        ELSE 'Low Earner'
+    END AS SalaryCategory
+FROM Employees;
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE Orders (
+    OrderID INT,
+    Status VARCHAR(50)
+);
+
+INSERT INTO Orders (OrderID, Status) VALUES
+(1, 'Pending'),
+(2, 'Shipped'),
+(3, 'Pending'),
+(4, 'Cancelled');
+
+SELECT 
+    CASE 
+        WHEN Status = 'Pending' THEN 'Pending Orders'
+        WHEN Status = 'Shipped' THEN 'Shipped Orders'
+        ELSE 'Other Orders'
+    END AS OrderStatus,
+    COUNT(*) AS OrderCount
+FROM Orders
+GROUP BY 
+    CASE 
+        WHEN Status = 'Pending' THEN 'Pending Orders'
+        WHEN Status = 'Shipped' THEN 'Shipped Orders'
+        ELSE 'Other Orders'
+    END;
