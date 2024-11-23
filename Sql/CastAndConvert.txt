@@ -20,7 +20,7 @@ FROM People;
 
 Select Id, Name, DateOfBirth, Convert(nvarchar, DateOfBirth, 103) as ConvertedDOB
 from People
-
+---converts date time in dateofbirth column  
 
 -- 1: mm/dd/yy
 -- 2: mm/dd/yyyy
