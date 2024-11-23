@@ -121,9 +121,6 @@ m 500000, 20
 
 
 
-create procedure y
-as
-begin
 
 SELECT TOP 1 Name, Income
 FROM people
