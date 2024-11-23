@@ -69,3 +69,5 @@ FROM emp;
 select deptno,sum(sal)"total salary" from emp group by deptno having sum(sal)>=17000
 
 select deptno,max(sal)"max salary" from emp group by deptno having max(sal)<=8000
+
+select gender,max(Income) as "Max salary" from people group by Gender having Gender = 'Female'
