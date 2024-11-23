@@ -43,6 +43,7 @@ select deptno,count(sal)"count salary" from emp group by deptno-------The query 
 
 SELECT deptno, SUM(sal) AS "total sal", MAX(sal) AS "max",  MIN(sal) AS "min",COUNT(sal) AS "count" FROM emp GROUP BY deptno;
 
+select Gender, sum(Income) as "Total salary",sum(Age) from people group by Gender having sum(Income)>370000 
 
 
 
