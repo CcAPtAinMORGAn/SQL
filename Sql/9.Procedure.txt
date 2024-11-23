@@ -106,6 +106,21 @@ end
 
 x
 
+create proc m
+@t int,
+@s int
+as
+begin
+	select Gender,sum(Income) as "Total salary" from people group by Gender having sum(Income)>@t 
+	select * from people where Age > @s
+end
+
+drop proc m
+
+m 500000, 20
+
+
+
 create procedure y
 as
 begin
