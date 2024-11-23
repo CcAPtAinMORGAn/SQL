@@ -90,10 +90,21 @@ select * from people
 create procedure x
 as
 begin
-SELECT Gender, SUM(Income) AS "total salary" FROM people WHERE Gender = 'Male' GROUP BY Gender;
+SELECT Gender, SUM(Income) AS "total salary" FROM people GROUP BY Gender;
 end
 x
---select Gender,max(Income)"max salary" from people group by Gender 
+--select Gender,max(Income) AS "max salary" from people group by Gender 
+
+
+drop proc x
+
+create procedure x
+as
+begin
+	select Gender, sum(Income) as "Total salary",sum(Age) from people group by Gender having sum(Income)>370000 
+end
+
+x
 
 create procedure y
 as
