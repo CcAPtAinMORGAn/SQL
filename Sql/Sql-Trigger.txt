@@ -1,0 +1,92 @@
+create database n
+
+use n
+create table op  
+( 
+roll int , 
+name varchar (100)
+) 
+
+ insert into op values 
+(1,'raj')
+
+------------
+drop trigger r
+
+create trigger r 
+on op 
+after insert 
+as 
+begin 
+  print ('data is inserted ') 
+end
+
+insert into op values 
+(2,'devesh') 
+--------------------
+drop trigger f2
+
+create trigger f2 
+on op 
+after delete
+as 
+begin 
+  print('data is deleted ')
+  select * from op
+end
+
+select * from op 
+
+delete op where roll=2
+--------------------------- update 
+create trigger f3 
+on op 
+after update 
+as 
+begin
+  print('data is update')
+end
+
+select * from op
+update op set roll=100 where roll=1 
+-----------------------
+drop trigger f3,f2
+
+create trigger s1 
+on op 
+after insert
+as 
+begin 
+  select * from op
+end
+
+insert into op values 
+(2,'hansika')
+
+select * from op
+
+---------------------- 
+create trigger s2 
+on op 
+after delete 
+as 
+begin 
+   select * from deleted
+end 
+
+select * from op 
+
+delete op where roll=2
+
+---------- 
+create trigger s3 
+on op 
+after update 
+as 
+begin 
+   select * from inserted 
+   select * from deleted  
+end 
+
+select * from op 
+update op set roll=20 where roll=2
