@@ -22,11 +22,27 @@ Create Table Employees
   (8, 'Jodi', 'Female', 7000),
   (9, 'Tom', 'Male', 5500),
   (10, 'Ron', 'Male', 5000)
+  
+  select  sum(Salary) as "Total Salary" from Employees
 
-  select * from Employees
-
-select * from Employees
-
+  -- select Name,Salary,sum(Salary) over(order by Id)
+  -- as "Total Salary" from Employees
+  
+  -- select Name,Salary,count(Salary) over(order by Id)
+  -- as "count Salary" from Employees
+  
+  -- select Name,Salary,max(Salary) over(order by Id)
+  -- as "Max Salary" from Employees
+  
+  
+  -- select Name,Salary,avg(Salary) over(order by Id)
+  -- as "Average Salary" from Employees
+  
+  
+  select Name,Salary,min(Salary) over(order by Id)
+  as "Min Salary" from Employees
+  
+   
 SELECT Name, Gender, Salary,
         SUM(Salary) OVER (ORDER BY ID) AS RunningTotal
 FROM Employees
