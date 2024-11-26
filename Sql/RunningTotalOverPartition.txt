@@ -51,3 +51,53 @@ FROM Employees
 SELECT Name, Gender, Salary,
         SUM(Salary) OVER (PARTITION BY Gender ORDER BY ID) AS RunningTotal
 FROM Employees
+
+
+
+
+
+
+
+    studentId INT,
+    studentName VARCHAR(50),
+    sectionName CHAR(1),
+    studentMarks INT
+);
+
+-- Insert values into the Students table
+INSERT INTO Students (studentId, studentName, sectionName, studentMarks) VALUES
+(1, 'Geek1', 'A', 461),
+(1, 'Geek2', 'B', 401),
+(1, 'Geek3', 'C', 340),
+(2, 'Geek4', 'A', 446),
+(2, 'Geek5', 'B', 361),
+(2, 'Geek6', 'C', 495),
+(3, 'Geek7', 'A', 436),
+(3, 'Geek8', 'B', 367),
+(3, 'Geek9', 'C', 498),
+(4, 'Geek10', 'A', 206),
+(4, 'Geek11', 'B', 365),
+(4, 'Geek12', 'C', 485),
+(5, 'Geek13', 'A', 446),
+(5, 'Geek14', 'B', 368),
+(5, 'Geek15', 'C', 295),
+(6, 'Geek16', 'C', 495);
+
+select * from Students
+
+truncate table Students
+
+
+
+
+select * from Students
+
+SELECT * , AVG(studentMarks) OVER (PARTITION BY sectionName) AS sectionAverage,
+MAX(studentMarks) OVER (PARTITION BY sectionName) AS sectionHighest,
+MIN(studentMarks) OVER (PARTITION BY sectionName) AS sectionLeast
+FROM Students
+ORDER BY sectionName
+
+
+select sectionName,sum(studentMarks) as "Total Marks",max(studentMarks) as "Max Marks",avg(studentMarks) as "Average Marks",
+min(studentMarks) as "Minimum Marks" from Students group by sectionName 
