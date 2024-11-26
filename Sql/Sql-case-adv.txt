@@ -133,6 +133,11 @@ INSERT INTO Orders (OrderID, Status) VALUES
 (3, 'Pending'),
 (4, 'Cancelled');
 
+
+
+select status,count(Status) as "status count" from Orders group by Status
+
+
 SELECT 
     CASE 
         WHEN Status = 'Pending' THEN 'Pending Orders'
