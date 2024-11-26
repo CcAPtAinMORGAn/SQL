@@ -2,6 +2,7 @@ create database xyz
 
 use xyz
 
+
 Create Table Employees
 (
      Id int primary key,
@@ -9,18 +10,20 @@ Create Table Employees
      Gender nvarchar(10),
      Salary int
 )
-Go
 
-Insert Into Employees Values (1, 'Mark', 'Male', 5000)
-Insert Into Employees Values (2, 'John', 'Male', 4500)
-Insert Into Employees Values (3, 'Pam', 'Female', 5500)
-Insert Into Employees Values (4, 'Sara', 'Female', 4000)
-Insert Into Employees Values (5, 'Todd', 'Male', 3500)
-Insert Into Employees Values (6, 'Mary', 'Female', 5000)
-Insert Into Employees Values (7, 'Ben', 'Male', 6500)
-Insert Into Employees Values (8, 'Jodi', 'Female', 7000)
-Insert Into Employees Values (9, 'Tom', 'Male', 5500)
-Insert Into Employees Values (10, 'Ron', 'Male', 5000)
+  Insert Into Employees Values
+  (1, 'Mark', 'Male', 5000),
+  (2, 'John', 'Male', 4500),
+  (3, 'Pam', 'Female', 5500),
+  (4, 'Sara', 'Female', 4000),
+  (5, 'Todd', 'Male', 3500),
+  (6, 'Mary', 'Female', 5000),
+  (7, 'Ben', 'Male', 6500),
+  (8, 'Jodi', 'Female', 7000),
+  (9, 'Tom', 'Male', 5500),
+  (10, 'Ron', 'Male', 5000)
+
+  select * from Employees
 
 select * from Employees
 
