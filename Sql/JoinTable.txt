@@ -80,3 +80,73 @@ on a.roll=b.roll_id
 select * from xyz as a
 full outer join abc as b
 on a.roll=b.roll_id
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+use uyyy
+-- Create the table
+CREATE TABLE Persons (
+    ID INT PRIMARY KEY,
+    NAME NVARCHAR(50),
+    AGE INT,
+    PHONE BIGINT
+);
+
+-- Insert the data
+INSERT INTO Persons (ID, NAME, AGE, PHONE) VALUES
+(1, 'AMIT JAIN', 21, 98474),
+(2, 'JATIN VERMA', 47, 63996);
+
+-- Create the table
+CREATE TABLE Orders (
+    ORDER_ID INT PRIMARY KEY,
+    AMOUNT DECIMAL(10, 2),
+    PLACED_ON DATE
+);
+
+-- Insert the data
+INSERT INTO Orders (ORDER_ID, AMOUNT, PLACED_ON) VALUES
+(101, 999, '2023-04-19'),
+(102, 4999, '2023-04-20');
+
+
+SELECT *
+FROM Persons
+CROSS JOIN ORDERS;
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE GFGemployees
+(employee_id INT PRIMARY KEY,
+ employee_name VARCHAR(50),
+ manager_id INT);
+
+
+INSERT INTO GFGemployees (employee_id, employee_name, manager_id)VALUES  
+(1, 'Zaid', 3),
+(2, 'Rahul', 3),
+(3, 'Raman', 4),  
+(4, 'Kamran', NULL),
+(5, 'Farhan', 4);
+
+select * from GFGemployees 
+
+
+SELECT e.employee_name AS employee,
+
+m.employee_name AS manager FROM 
+
+GFGemployees AS e JOIN GFGemployees 
+
+AS m ON e.manager_id = m.employee_id;
+
+
+
+
