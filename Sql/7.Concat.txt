@@ -1,6 +1,8 @@
 
 use yash
 
+
+
 CREATE TABLE Employees (
     EmployeeID INT PRIMARY KEY,
     FirstName VARCHAR(50),
@@ -25,9 +27,33 @@ FROM Employees;
 SELECT EmployeeID, CONCAT('First Name:- ',FirstName, '  ','Last Name:- ', LastName) AS FullName, HireDate
 FROM Employees;
 
+
 SELECT 
     EmployeeID,
-    FirstName AS 'Full Name (First Name)', 
-    LastName AS 'Full Name (Last Name)', 
+    FirstName AS 'Name (First Name)', 
+    LastName AS 'Name (Last Name)', 
     HireDate
 FROM Employees;
+
+
+
+SELECT EmployeeID, CONCAT('Hello ', FirstName, ' ', LastName) AS Greeting, HireDate
+FROM Employees;
+
+SELECT EmployeeID, CONCAT(FirstName, ' ', LastName, ' - Role:(Manager)') AS FullDetails, HireDate
+FROM Employees;
+
+SELECT EmployeeID, CONCAT('[', FirstName, ' ', LastName, ']') AS BracketedName, HireDate
+FROM Employees;
+
+
+SELECT *, 
+       CONCAT(FirstName, ' ', LastName, ' was hired on ', FORMAT(HireDate, 'MMMM dd, yyyy')) AS EmployeeDetails
+FROM Employees;
+
+SELECT *, CONCAT('Yash Team: ', FirstName, ' ', LastName) AS "TeamList, HireDate"
+FROM Employees;
+
+SELECT EmployeeID, CONCAT(LOWER(FirstName), '.', LOWER(LastName), '@gmail.com') AS EmailAddress, HireDate
+FROM Employees;
+
