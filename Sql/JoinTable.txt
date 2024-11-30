@@ -123,30 +123,30 @@ CROSS JOIN ORDERS;
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-CREATE TABLE GFGemployees
+CREATE TABLE emp
 (employee_id INT PRIMARY KEY,
  employee_name VARCHAR(50),
  manager_id INT);
 
 
-INSERT INTO GFGemployees (employee_id, employee_name, manager_id)VALUES  
+INSERT INTO emp(employee_id, employee_name, manager_id)VALUES  
 (1, 'Zaid', 3),
 (2, 'Rahul', 3),
 (3, 'Raman', 4),  
 (4, 'Kamran', NULL),
 (5, 'Farhan', 4);
 
-select * from GFGemployees 
+select * from emp 
 
+select employee_name,manager_id from emp 
+select employee_id,employee_name from emp 
 
-SELECT e.employee_name AS employee,
+select * from emp 
 
-m.employee_name AS manager FROM 
-
-GFGemployees AS e JOIN GFGemployees 
-
-AS m ON e.manager_id = m.employee_id;
-
-
-
-
+SELECT 
+E.employee_name AS Employee,
+M.employee_name AS Manager
+FROM emp 
+E LEFT JOIN emp M
+ON
+E.manager_id = M.employee_id;
