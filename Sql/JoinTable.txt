@@ -136,17 +136,40 @@ INSERT INTO emp(employee_id, employee_name, manager_id)VALUES
 (4, 'Kamran', NULL),
 (5, 'Farhan', 4);
 
-select * from emp 
+select * from emp
 
-select employee_name,manager_id from emp 
-select employee_id,employee_name from emp 
+----a copy of employee_name column is stored in  variable e as "Employee" and variable m as "Manager" 
+----then we join e and m i.e the same employee_name column on the basis that manager_id is equal to employee_id 
+----when manager_id = employee_id we write e.manager_id =  m.employee_id because for manager_id 3 where employee_name is Zaid 
+----and employee_id is 3 where employee_name is Raman we want to store zaid with manager_id 3 in employee column thus we write e.manager_id i.e e.zaid
+---- we want to store Raman with employee_id 3 in manager column thus we write m.employee_id i.e m.Raman 
 
-select * from emp 
+
+select e.employee_name as "Employee",
+m.employee_name as "Manager" 
+from emp
+e join emp m 
+on
+e.manager_id =  m.employee_id
+
+------------in left join the employee_name will be stored entirely in Employee column as it is on left 
+
+
+SELECT 
+e.employee_name AS Employee,
+m.employee_name AS Manager
+FROM emp 
+e LEFT JOIN emp m
+ON
+e.manager_id = m.employee_id;
+
+
+------------in right join the employee_name will be stored entirely in Manager column as it is on right 
 
 SELECT 
 E.employee_name AS Employee,
 M.employee_name AS Manager
 FROM emp 
-E LEFT JOIN emp M
+e right JOIN emp m
 ON
-E.manager_id = M.employee_id;
+e.manager_id = m.employee_id;
