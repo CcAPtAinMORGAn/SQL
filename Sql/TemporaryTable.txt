@@ -1,0 +1,38 @@
+Create Table #PersonDetails(Id int, Name nvarchar(20))
+
+--Insert Data into the temporary table:
+Insert into #PersonDetails Values(1, 'Mike')
+Insert into #PersonDetails Values(2, 'John')
+Insert into #PersonDetails Values(3, 'Todd')
+
+--Select the data from the temporary table:
+Select * from #PersonDetails
+
+
+
+
+--How to check if the local temporary table is created
+
+Select name from tempdb..sysobjects 
+where name like '#PersonDetails%'
+
+DROP TABLE #PersonDetails
+
+
+--If the temporary table, is created inside the stored procedure, it get's dropped automatically upon the completion of stored procedure execution.
+
+Create Procedure spCreateLocalTempTable
+as
+Begin
+Create Table #PersonDetails(Id int, Name nvarchar(20))
+
+Insert into #PersonDetails Values(1, 'Mike')
+Insert into #PersonDetails Values(2, 'John')
+Insert into #PersonDetails Values(3, 'Todd')
+
+Select * from #PersonDetails
+End
+
+spCreateLocalTempTable
+
+Select * from #PersonDetails
