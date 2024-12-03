@@ -147,3 +147,4 @@ GROUP BY
         WHEN Status = 'Shipped' THEN 'Shipped Orders'
         ELSE 'Other Orders'
     END;
+---hi
