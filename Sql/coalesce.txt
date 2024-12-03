@@ -1,0 +1,25 @@
+
+-- Create the table
+CREATE TABLE Person (
+    Id INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    MiddleName VARCHAR(50),
+    LastName VARCHAR(50)
+);
+
+-- Insert data into the table
+INSERT INTO Person (Id, FirstName, MiddleName, LastName) VALUES
+(1, 'Sam', NULL, NULL),
+(2, NULL, 'Todd', 'Tanzan'),
+(3, NULL, NULL, 'Sara'),
+(4, 'Ben', 'Parker', NULL),
+(5, 'James', 'Nick', 'Nancy');
+
+-- select * from Person
+
+--we want the FirstName from each row 
+--if FirstName is not available we want the MiddleName
+--if MiddleName is not available then we want the LastName
+
+select Id,coalesce(FirstName,MiddleName,LastName) as "Name"
+from Person
