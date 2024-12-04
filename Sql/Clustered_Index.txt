@@ -66,5 +66,39 @@ execute sp_helpindex tblEmployee
 
 
 
+Create NonClustered Index IX_tblEmployee_Name
+ON tblEmployee(Name asc)
+
+select * from tblEmployee where name = 'Sam'
+
+execute sp_helpindex tblEmployee
+
+select * from tblEmployee
+
+Create Index tblEmployee_Name_desc
+ON tblEmployee(Name desc)
+
+execute sp_helpindex tblEmployee
 
 
+
+--Clustered Index: 
+--A clustered index modifies the physical order of the data rows in the table.
+--In other words, the rows are stored in the same order as the clustered index.
+--Since there can only be one order of the rows in a table, a table can have only one clustered index.
+
+
+--Non-Clustered Index: 
+--Non-clustered indexes are separate from the table 
+--and do not affect the original table
+
+--Clustered Index Speed:
+--Since the clustered index modifies the original table, 
+--looking up data using the clustered index is direct and doesn't require additional lookups 
+
+
+--Non-Clustered Index Speed:
+--When you use a non-clustered index as Non-clustered indexes are separate from the table 
+--When we write a query for different column other than the column on which index is based 
+--the query processor needs to first look for the column in the non-clustered index and 
+--then in the original table this original table cause time delay
