@@ -72,5 +72,6 @@ alter table tree drop column s1
 UPDATE tree
 SET s1 = NULL;
 
+DELETE FROM tree WHERE name = 'yash';
 
 alter table tree drop column s2,s3
