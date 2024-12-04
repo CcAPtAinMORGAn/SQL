@@ -25,6 +25,7 @@ Select Gender, Sum(Salary) as Total
 from tblEmployee
 Group by Gender
 
+alter table tblEmployee drop column Salary
 
 Alter table tblEmployee
 Alter column Salary int
