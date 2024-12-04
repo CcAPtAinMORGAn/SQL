@@ -1,3 +1,4 @@
+
 use yash
 
 
@@ -18,22 +19,30 @@ INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)VALUES
 (6, 'Avdeep Desai', '34 River View, Hyderabad', '9876543215',NULL);
 
 
+--Distinct shows duplicate values only once
+
 SELECT DISTINCT AGE
 FROM students;
 
-SELECT DISTINCT AGE,NAME 
-FROM students;
+----------------------------------------------------------------------------
+INSERT INTO students (ROLL_NO, NAME, ADDRESS, PHONE, AGE)VALUES 
+(27, '27', '27', '27',27),
+(27, '27', '27', '27',27)
+
+delete from students where ROLL_NO = 27
+
+select * from students
+
+
+--DISTINCT: 
+--This ensures that only unique (non-duplicate) rows are returned. 
+--If two or more rows  are identical across all columns then it will show them only once
 
 SELECT DISTINCT *  FROM students;
+----------------------------------------------------------------------------
+select * from students
 
-SELECT DISTINCT ROLL_NO, AGE
-FROM Students
-ORDER BY AGE;
+SELECT COUNT(DISTINCT ROLL_NO)  FROM Students ;
 
-SELECT DISTINCT count(DISTINCT AGE) FROM Students 
-
-SELECT ROLL_NO,COUNT(DISTINCT AGE) FROM Students AS distinct_roll_no_count
-FROM Students
-GROUP BY ROLL_NO;
-
+SELECT COUNT(DISTINCT AGE)  FROM Students ;
 
