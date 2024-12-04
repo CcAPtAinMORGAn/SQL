@@ -1,0 +1,70 @@
+
+use yash
+
+--Why indexes?
+--Indexes are used by queries to find data from tables quickly. 
+--Indexes are created on tables and views. Index on a table or a view, is very similar to an index that we find in a book
+
+
+--If you don't have an index in a book, and I ask you to locate a specific chapter in that book, 
+--you will have to look at every page starting from the first page of the book.
+
+--On, the other hand, if you have the index, you lookup the page number of the chapter in the index,
+ --and then directly go to that page number to locate the chapter.
+
+--Obviously, the book index is helping to drastically reduce the time it takes to find the chapter.
+
+--In a similar way, Table and View indexes, can help the query to find data quickly.
+
+-- Create the table
+CREATE TABLE Employees(
+    Id INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Salary INT,
+    Gender VARCHAR(10)
+);
+
+-- Insert data into the table
+INSERT INTO Employees (Id, Name, Salary, Gender)VALUES
+(1, 'Sam', 2500, 'Male'),
+(2, 'Pam', 6500, 'Female'),
+(3, 'John', 4500, 'Male'),
+(4, 'Sara', 5500, 'Female'),
+(5, 'Todd', 3100, 'Male');
+
+select * from Employees
+
+
+Select * from Employees where Salary > 5000 and Salary < 7000
+
+--To find all the employees, who has salary greater than 5000 and less than 7000, the query engine has to check each and every row in the table, 
+--resulting in a table scan, which can adversely affect the performance, especially if the table is large. 
+--Since there is no index, to help the query, the query engine performs an entire table scan
+
+
+--Now Let's Create the Index to help the query:Here, we are creating an index on Salary column in the employee table
+
+CREATE Index Employee_Salary_Index 
+ON Employees(Salary ASC)
+
+Select * from Employees where Salary > 5000 and Salary < 7000
+
+
+CREATE Index Employee_Salary_Index_2 
+ON Employees(Salary DESC)
+
+Select * from Employees where Salary < 7000 and Salary > 5000
+
+
+Execute sp_helpindex Employees	
+
+
+Drop Index Employees.Employee_Salary_Index
+
+--The index stores salary of each employee, 
+--in the ascending order 
+
+--Now, when the SQL server has to execute the same query, it has an index on the salary column to help this query.
+--Salaries between the range of 5000 and 7000 are usually present at the bottom, since the salaries are arranged in an ascending order.
+--SQL server picks up the row addresses from the index and directly fetch the records from the table,
+--rather than scanning each row in the table. This is called as Index Seek.
