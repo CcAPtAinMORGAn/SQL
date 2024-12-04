@@ -1,0 +1,70 @@
+use yash
+
+
+CREATE TABLE tblEmployee
+(
+ Id int Primary Key,
+ Name varchar(50),
+ Salary int,
+ Gender nvarchar(10),
+ City nvarchar(50)
+)
+
+drop table tblEmployee
+
+
+truncate table tblEmployee
+
+--Note that Id column is marked as primary key. Primary key, constraint create clustered indexes 
+--automatically if no clustered index already exists on the table and a nonclustered index is not 
+--specified when you create the PRIMARY KEY constraint
+
+
+
+Insert into tblEmployee Values
+(3,'John',4500,'Male','New York'),
+(1,'Sam',2500,'Male','London'),
+(4,'Sara',5500,'Female','Tokyo'),
+(5,'Todd',3100,'Male','Toronto'),
+(2,'Pam',6500,'Female','Sydney')
+
+
+select * from tblEmployee
+
+
+execute sp_helpindex tblEmployee
+
+
+--Output:-		
+--PK__tblEmplo__3214EC07367E6F29	clustered, unique, primary key located on PRIMARY	Id
+
+
+
+execute sp_helpindex tblEmployee
+
+Drop Index tblEmployees.PK__tblEmplo__3214EC07367E6F29 -- we will get error
+
+--a clustered index dictates the physical 
+--storage order of the data in a table, 
+--a table can contain only one clustered index.
+
+--To successfully delete the clustered index, 
+--right click on the index in the Object explorer window and select DELETE.
+
+
+Create Clustered Index tblEmployee_Gender_Salary
+ON tblEmployee(Gender DESC, Salary ASC)
+
+--Now, if you issue a select query against this table you should see the data physically arranged,
+--FIRST by Gender in descending order and then by Salary in ascending order. 
+--The result is shown below.
+
+select * from tblEmployee
+
+
+execute sp_helpindex tblEmployee
+
+
+
+
+
