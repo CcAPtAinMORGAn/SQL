@@ -94,7 +94,16 @@ select * from Sales
 
 select Name, count(ProductId) as "Transactions" from Sales group by Name
 
+create view Transactions as select Name, count(ProductId) as "Transactions" from Sales group by Name
+
+select * from Transactions
+
 select Name, sum(QuantitySold * UnitPrice) as "Total quantity sold" from Sales group by Name
+
+create view Total_quantity_sold as select Name, sum(QuantitySold * UnitPrice) as "Total quantity sold" from Sales group by Name
+
+select * from Total_quantity_sold
+
 
 
 select Name, count(QuantitySold) as "Transactions" from Sales group by Name
