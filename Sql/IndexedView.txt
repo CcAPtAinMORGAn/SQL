@@ -57,6 +57,18 @@ on dbo.tblProduct.ProductId = dbo.tblProductSales.ProductId
 group by Name
 
 
+
+
+
+--------------------------------------------------------------------------------
+
+Select Name,
+SUM(QuantitySold * UnitPrice) as TotalSales, 
+COUNT(*) as TotalTransactions
+from tblProductSales
+join tblProduct
+on tblProduct.ProductId = tblProductSales.ProductId
+group by Name
 select * from tblProduct
 
 select * from tblProductSales
