@@ -1,0 +1,64 @@
+use yash
+
+Create Table tblProduct
+(
+ ProductId int primary key,
+ Name nvarchar(20),
+ UnitPrice int
+)
+
+Insert into tblProduct Values
+(1, 'Books', 20),
+(2, 'Pens', 14),
+(3, 'Pencils', 11),
+(4, 'Clips', 10)
+
+
+
+select * from tblProduct
+
+
+
+
+
+Create Table tblProductSales
+(
+ ProductId int,
+ QuantitySold int
+)
+
+Insert into tblProductSales values
+(1, 10),
+(3, 23),
+(4, 21),
+(2, 12),
+(1, 13),
+(3, 12),
+(4, 13),
+(1, 11),
+(2, 12),
+(1, 14)
+
+select * from tblProduct
+
+select * from tblProductSales
+
+--Create a view which returns Total Sales and Total Transactions by Product. 
+
+Create view TotalSalesByProduct
+with SchemaBinding
+as
+Select Name, 
+SUM(ISNULL((QuantitySold * UnitPrice), 0)) as TotalSales, 
+COUNT_BIG(*) as TotalTransactions
+from dbo.tblProductSales
+join dbo.tblProduct
+on dbo.tblProduct.ProductId = dbo.tblProductSales.ProductId
+group by Name
+
+
+select * from tblProduct
+
+select * from tblProductSales
+
+select * from TotalSalesByProduct
