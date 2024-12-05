@@ -61,4 +61,42 @@ join tblProduct
 on tblProduct.ProductId = tblProductSales.ProductId_2
 group by Name
 
+----------------------------------------------------------------------------------------------------------------------------------------
+--Solving by Grouping data after joining both tables
+
+
+
+
+use yash
+
+-- Create table for sales data
+CREATE TABLE Sales (
+    QuantitySold INT,
+    ProductId INT,
+    Name VARCHAR(50),
+    UnitPrice DECIMAL(10, 2)
+);
+
+-- Insert values into the table
+INSERT INTO Sales (QuantitySold, ProductId, Name, UnitPrice) VALUES
+(10, 1, 'Books', 20.00),
+(23, 3, 'Pencils', 11.00),
+(21, 4, 'Clips', 10.00),
+(12, 2, 'Pens', 14.00),
+(13, 1, 'Books', 20.00),
+(12, 3, 'Pencils', 11.00),
+(13, 4, 'Clips', 10.00),
+(11, 1, 'Books', 20.00),
+(12, 2, 'Pens', 14.00),
+(14, 1, 'Books', 20.00);
+
+select * from Sales
+
+select Name, count(ProductId) as "Transactions" from Sales group by Name
+
+select Name, sum(QuantitySold * UnitPrice) as "Total quantity sold" from Sales group by Name
+
+
+select Name, count(QuantitySold) as "Transactions" from Sales group by Name
+
 
