@@ -151,3 +151,34 @@ select Transaction_Name,Total_Sales,Transactions_count from Total_Sales_and_Tran
 CREATE VIEW Sorted_Total_Sales_and_Transactions AS select Transaction_Name,Total_Sales,Transactions_count from Total_Sales_and_Transactions
 
 select * from Sorted_Total_Sales_and_Transactions 
+
+
+
+
+-------------------------------–------------------------------------–------------------------------------–-----
+
+CREATE TABLE Sales (
+    QuantitySold INT,
+    ProductId INT,
+    Name VARCHAR(50),
+    UnitPrice DECIMAL(10, 2)
+);
+
+-- Insert values into the table
+INSERT INTO Sales (QuantitySold, ProductId, Name, UnitPrice) VALUES
+(10, 1, 'Books', 20.00),
+(23, 3, 'Pencils', 11.00),
+(21, 4, 'Clips', 10.00),
+(12, 2, 'Pens', 14.00),
+(13, 1, 'Books', 20.00),
+(12, 3, 'Pencils', 11.00),
+(13, 4, 'Clips', 10.00),
+(11, 1, 'Books', 20.00),
+(12, 2, 'Pens', 14.00),
+(14, 1, 'Books', 20.00);
+
+Select Name,
+SUM(QuantitySold * UnitPrice) as TotalSales, 
+COUNT(*) as TotalTransactions
+from Sales
+group by Name
